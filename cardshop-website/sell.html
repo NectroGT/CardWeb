@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sell your cards – [SHOP NAME]</title>
+<meta name="description" content="We buy trading cards: singles, bulk, graded slabs and sealed product. Cash or store credit.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🃏</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F8FA}
+body:has(.theme-dark){background:#121417}
+.theme-light{--bg:#F7F8FA;--band:#EEF1F5;--surface:#FFFFFF;--surface2:#F1F3F6;--line:#DFE3E8;--line2:#C3CAD3;--text:#1A1D23;--text2:#363B45;--muted:#5A606B;--muted2:#656B76;--ink-accent:#2457C5;--ink-rose:#A3336F;--icon:#5B8DEF;--header:rgba(247,248,250,0.92)}
+.theme-dark{--bg:#121417;--band:#181B20;--surface:#1E2228;--surface2:#272C33;--line:#333942;--line2:#47505B;--text:#F1F3F6;--text2:#D3D8DF;--muted:#AEB5BF;--muted2:#9EA6B1;--ink-accent:#A9C8FF;--ink-rose:#FFB8D9;--icon:#8DB2F5;--header:rgba(18,20,23,0.92)}
+a{color:var(--text)}a:hover{color:var(--ink-accent)}
+.gridbg{background-color:var(--bg);transition:background-color .2s,color .2s}
+.cut{clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.cutsm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+</style>
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="gridbg {{themeClass}}" style="color: var(--text); font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh">
+
+<header style="border-bottom: 1px solid var(--line); background: var(--header)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="index.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text)">
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M17 2l13 7.5v15L17 32 4 24.5v-15z" stroke="{{accent}}" stroke-width="2"></path><path d="M17 9l7 4v8l-7 4-7-4v-8z" fill="#FFB8D9"></path></svg>
+<span style="font-weight: 700; font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase">[SHOP NAME]</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase">
+<a href="index.html" style="text-decoration: none">Home</a>
+<a href="shop.html" style="text-decoration: none">Shop</a>
+<a href="sell.html" aria-current="page" style="text-decoration: none; color: var(--ink-accent); font-weight: 700">Sell</a>
+<a href="index.html" style="text-decoration: none">Events</a>
+<a href="index.html" class="cutsm" style="text-decoration: none; background: {{accent}}; color: #1A1D23; font-weight: 500; padding: 9px 16px">Get directions</a>
+<a href="shop.html" aria-label="Cart" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; position: relative"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11.2L21 7H6.2"></path><circle cx="9" cy="19.5" r="1.4"></circle><circle cx="17" cy="19.5" r="1.4"></circle></svg></a>
+<a href="account.html" aria-label="Account" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; position: relative"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></a>
+<button type="button" data-click="toggleTheme" aria-label="{{themeLabel}}" title="{{themeLabel}}" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer">
+<div data-if="isDark">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+</div>
+<div data-if="isLight">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+</div>
+</button>
+</nav>
+</div>
+</header>
+
+<section style="max-width: 1120px; margin: 0 auto; padding: 56px 24px 48px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)">Buy · Sell · Trade</p>
+<h1 style="margin: 0; font-weight: 700; font-size: clamp(34px, 4.4vw, 58px); line-height: 0.98; text-transform: uppercase">We buy cards</h1>
+<p style="margin: 0; max-width: 520px; font-size: 16px; color: var(--muted)">From a single chase card to a full binder or graded slabs — get a fair offer based on current market prices, paid on the spot.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#quote" class="cut" style="text-decoration: none; background: {{accent}}; color: #1A1D23; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 22px">Get a quote</a>
+<a href="#wanted" style="text-decoration: none; border: 1px solid var(--line2); color: var(--text); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 11px 22px">See what we’re buying</a>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2)">Cash</span>
+<span style="font-size: 30px; font-weight: 700">[X]%</span>
+<span style="font-size: 13px; color: var(--muted)">of market value, paid by PayNow or cash</span>
+</div>
+<div class="cut" style="background: {{accent}}; color: #1A1D23; padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">Store credit</span>
+<span style="font-size: 30px; font-weight: 700">[Y]%</span>
+<span style="font-size: 13px">of market value — our best offer, spend it on anything in store</span>
+</div>
+</div>
+</section>
+
+<section aria-label="How it works" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--band)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 48px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 14px; color: var(--ink-accent)">[01]</span><h2 style="margin: 0; font-size: 18px; font-weight: 700; text-transform: uppercase">Bring it in or send a quote</h2><p style="margin: 0; color: var(--muted)">Walk in during buy hours [BUY HOURS], or use the form below for big collections.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 14px; color: var(--ink-accent)">[02]</span><h2 style="margin: 0; font-size: 18px; font-weight: 700; text-transform: uppercase">We grade &amp; price</h2><p style="margin: 0; color: var(--muted)">Each card is checked for condition and priced against current market value, in front of you.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 14px; color: var(--ink-accent)">[03]</span><h2 style="margin: 0; font-size: 18px; font-weight: 700; text-transform: uppercase">Get paid on the spot</h2><p style="margin: 0; color: var(--muted)">Take cash, PayNow or store credit. No obligation — you can always say no.</p></div>
+</div>
+</section>
+
+<section id="wanted" style="max-width: 1120px; margin: 0 auto; padding: 64px 24px 40px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 560px">
+<p style="margin: 0; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)">Updated [DATE]</p>
+<h2 style="margin: 0; font-weight: 700; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.05; text-transform: uppercase">Wanted list</h2>
+<p style="margin: 0; color: var(--muted)">Cards we’re actively looking for right now. Prices are for Near Mint copies.</p>
+</div>
+<div role="group" aria-label="Filter by game" style="display: flex; flex-wrap: wrap; gap: 8px">
+<template data-for="tabs" data-as="t">
+<button type="button" data-click="t.pick" aria-pressed="{{t.pressed}}" style="{{t.style}}">{{t.label}}</button>
+</template>
+</div>
+</div>
+<div style="overflow-x: auto; border: 1px solid var(--line); background: var(--surface)">
+<table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px">
+<thead>
+<tr style="text-align: left; background: var(--surface2)">
+<th scope="col" style="padding: 12px 16px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2)">Card</th>
+<th scope="col" style="padding: 12px 16px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2)">Game</th>
+<th scope="col" style="padding: 12px 16px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2)">Set</th>
+<th scope="col" style="padding: 12px 16px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); text-align: right">Cash</th>
+<th scope="col" style="padding: 12px 16px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); text-align: right">Credit</th>
+</tr>
+</thead>
+<tbody>
+<template data-for="wanted" data-as="w">
+<tr style="border-top: 1px solid var(--line)">
+<td style="padding: 14px 16px; font-weight: 600">{{w.name}}</td>
+<td style="padding: 14px 16px; color: var(--muted)">{{w.game}}</td>
+<td style="padding: 14px 16px; color: var(--muted)">{{w.set}}</td>
+<td style="padding: 14px 16px; text-align: right">[CASH PRICE]</td>
+<td style="padding: 14px 16px; text-align: right; font-weight: 600; color: var(--ink-accent)">[CREDIT PRICE]</td>
+</tr>
+</template>
+</tbody>
+</table>
+</div>
+</section>
+
+<section aria-label="What we buy" style="max-width: 1120px; margin: 0 auto; padding: 24px 24px 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 700; text-transform: uppercase">What we buy</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; color: var(--text2)">
+<li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span>Singles from Pokémon, Magic, Yu-Gi-Oh!, One Piece and Lorcana</span></li>
+<li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span>Graded slabs (PSA, BGS, CGC)</span></li>
+<li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span>Sealed booster boxes and packs</span></li>
+<li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span>Bulk commons and uncommons, sorted by game</span></li>
+</ul>
+</div>
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 700; text-transform: uppercase">What we don’t buy</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; color: var(--text2)">
+<li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ink-rose)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Heavily damaged cards (water damage, creases, writing)</span></li>
+<li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ink-rose)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Counterfeit or proxy cards</span></li>
+<li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ink-rose)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Opened or resealed sealed product</span></li>
+</ul>
+</div>
+</section>
+
+<section id="quote" style="border-top: 1px solid var(--line); background: var(--band)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 64px 24px 72px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)">Big collection?</p>
+<h2 style="margin: 0; font-weight: 700; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.05; text-transform: uppercase">Request a quote</h2>
+<p style="margin: 0; color: var(--muted); max-width: 400px">Tell us what you have and we’ll reply within [RESPONSE TIME] with a rough offer and a time to bring it in.</p>
+</div>
+<div class="cut" style="flex: 1 1 480px; min-width: 0; background: var(--surface); border: 1px solid var(--line); padding: 28px">
+<div data-if="sent">
+<div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 24px 0">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>
+<h3 style="margin: 0; font-size: 22px; font-weight: 700">Thanks — request sent!</h3>
+<p style="margin: 0; color: var(--muted)">We’ll get back to you within [RESPONSE TIME].</p>
+<button type="button" data-click="resetQuote" style="font: inherit; font-size: 14px; color: var(--ink-accent); background: none; border: none; padding: 10px 0; cursor: pointer; text-decoration: underline">Send another request</button>
+</div>
+</div>
+<div data-if="notSent">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="q-name" style="font-size: 13px; font-weight: 600; color: var(--text2)">Name</label><input id="q-name" type="text" autocomplete="name" placeholder="Your name" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="q-phone" style="font-size: 13px; font-weight: 600; color: var(--text2)">WhatsApp / phone</label><input id="q-phone" type="tel" autocomplete="tel" placeholder="+65 " style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span id="q-kind" style="font-size: 13px; font-weight: 600; color: var(--text2)">What are you selling?</span>
+<div role="group" aria-labelledby="q-kind" style="display: flex; flex-wrap: wrap; gap: 8px">
+<template data-for="kinds" data-as="k">
+<button type="button" data-click="k.toggle" aria-pressed="{{k.pressed}}" style="{{k.style}}">{{k.label}}</button>
+</template>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="q-count" style="font-size: 13px; font-weight: 600; color: var(--text2)">Roughly how many cards?</label><input id="q-count" type="text" inputmode="numeric" placeholder="e.g. 500" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="q-desc" style="font-size: 13px; font-weight: 600; color: var(--text2)">Tell us about it</label><textarea id="q-desc" rows="4" placeholder="Games, sets, any standout cards, condition…" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2); padding: 12px 14px; resize: vertical"></textarea></div>
+<button type="button" data-click="sendQuote" class="cut" style="font: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; min-height: 48px; background: {{accent}}; color: #1A1D23; border: none; cursor: pointer">Send request</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer style="border-top: 1px solid var(--line); background: var(--band)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: var(--muted2)">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text)">[SHOP NAME]</span>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 24px; text-transform: uppercase">
+<a href="shop.html" style="text-decoration: none; color: var(--muted2)">Shop</a>
+<a href="index.html" style="text-decoration: none; color: var(--muted2)">Events</a>
+<a href="sell.html" style="text-decoration: none; color: var(--muted2)">Sell</a>
+<a href="index.html" style="text-decoration: none; color: var(--muted2)">Join the list</a>
+<a href="index.html" style="text-decoration: none; color: var(--muted2)">Visit</a>
+</nav>
+<span>© 2026 [SHOP NAME]</span>
+</div>
+</footer>
+
+</div>
+<script src="assets/runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { dark: null, game: 'All', kinds: [], sent: false };
+  }
+  renderVals() {
+    const accent = this.props.accent ?? '#BFD9FF';
+    const st = this.state;
+    const chip = (on) => "font: inherit; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; min-height: 40px; padding: 0 14px; cursor: pointer; " + (on ? 'background: ' + accent + '; color: #1A1D23; border: 1px solid ' + accent : 'background: var(--surface2); color: var(--text2); border: 1px solid var(--line)');
+    const all = [
+      { game: 'Pokémon', name: '[Card name]', set: '[Set]' },
+      { game: 'Pokémon', name: '[Card name]', set: '[Set]' },
+      { game: 'Magic', name: '[Card name]', set: '[Set]' },
+      { game: 'Magic', name: '[Card name]', set: '[Set]' },
+      { game: 'Yu-Gi-Oh!', name: '[Card name]', set: '[Set]' },
+      { game: 'One Piece', name: '[Card name]', set: '[Set]' },
+      { game: 'One Piece', name: '[Card name]', set: '[Set]' }
+    ];
+    const game = st.game || 'All';
+    const wanted = all.filter((w) => game === 'All' || w.game === game);
+    const tabs = ['All', 'Pokémon', 'Magic', 'Yu-Gi-Oh!', 'One Piece'].map((label) => ({ label, pressed: game === label ? 'true' : 'false', style: chip(game === label), pick: () => this.setState({ game: label }) }));
+    const picked = st.kinds || [];
+    const kinds = ['Singles', 'Bulk', 'Graded slabs', 'Sealed'].map((label) => {
+      const on = picked.indexOf(label) !== -1;
+      return { label, pressed: on ? 'true' : 'false', style: chip(on), toggle: () => this.setState({ kinds: on ? picked.filter((x) => x !== label) : picked.concat([label]) }) };
+    });
+    const isDark = (st.dark !== null && st.dark !== undefined) ? st.dark : (this.props.darkMode ?? true);
+    return {
+      accent, tabs, wanted, kinds,
+      sent: !!st.sent, notSent: !st.sent,
+      sendQuote: () => this.setState({ sent: true }),
+      resetQuote: () => this.setState({ sent: false, kinds: [] }),
+      isDark, isLight: !isDark, toggleTheme: () => this.setState({ dark: !isDark }),
+      themeClass: isDark ? 'theme-dark' : 'theme-light', themeLabel: isDark ? 'Switch to light mode' : 'Switch to dark mode'
+    };
+  }
+}
+DC.mount(Component, {"accent": "#BFD9FF", "darkMode": true});
+</script>
+</body>
+</html>

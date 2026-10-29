@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>[SHOP NAME] – Trading card shop</title>
+<meta name="description" content="Trading cards, singles, sealed product and weekly tournaments for Pokémon, Magic, Yu-Gi-Oh!, One Piece and more.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🃏</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F8FA}
+body:has(.theme-dark){background:#121417}
+.theme-light{--bg:#F7F8FA;--band:#EEF1F5;--surface:#FFFFFF;--surface2:#F1F3F6;--line:#DFE3E8;--line2:#C3CAD3;--text:#1A1D23;--text2:#363B45;--muted:#5A606B;--muted2:#656B76;--ink-accent:#2457C5;--ink-rose:#A3336F;--icon:#5B8DEF;--header:rgba(247,248,250,0.92)}
+.theme-dark{--bg:#121417;--band:#181B20;--surface:#1E2228;--surface2:#272C33;--line:#333942;--line2:#47505B;--text:#F1F3F6;--text2:#D3D8DF;--muted:#AEB5BF;--muted2:#9EA6B1;--ink-accent:#A9C8FF;--ink-rose:#FFB8D9;--icon:#8DB2F5;--header:rgba(18,20,23,0.92)}
+a{color:var(--text)}a:hover{color:var(--ink-accent)}
+.gridbg{background-color:var(--bg);transition:background-color .2s,color .2s}
+.cut{clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.cutsm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+</style>
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="gridbg {{themeClass}}" style="color: var(--text); font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh">
+
+<header style="border-bottom: 1px solid var(--line); background: var(--header)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text)">
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M17 2l13 7.5v15L17 32 4 24.5v-15z" stroke="{{accent}}" stroke-width="2"></path><path d="M17 9l7 4v8l-7 4-7-4v-8z" fill="#FFB8D9"></path></svg>
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase">[SHOP NAME]</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase">
+<a href="shop.html" style="text-decoration: none">Shop</a>
+<a href="#events" style="text-decoration: none">Events</a>
+<a href="sell.html" style="text-decoration: none">Sell</a>
+<a href="#visit" style="text-decoration: none">Visit</a>
+<a href="#visit" class="cutsm" style="text-decoration: none; background: {{accent}}; color: #1A1D23; font-weight: 500; padding: 9px 16px">Get directions</a>
+<a href="shop.html" aria-label="Cart" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; position: relative"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11.2L21 7H6.2"></path><circle cx="9" cy="19.5" r="1.4"></circle><circle cx="17" cy="19.5" r="1.4"></circle></svg></a>
+<a href="account.html" aria-label="Account" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; position: relative"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></a>
+<button type="button" data-click="toggleTheme" aria-label="{{themeLabel}}" title="{{themeLabel}}" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer">
+<div data-if="isDark">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+</div>
+<div data-if="isLight">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+</div>
+</button>
+</nav>
+</div>
+</header>
+
+<section id="top" style="max-width: 1120px; margin: 0 auto; padding: 48px 24px 56px; display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+<div style="flex: 1 1 500px; min-width: 0; max-width: 760px; display: flex; flex-direction: column; gap: 20px">
+<p style="margin: 0; display: flex; align-items: center; gap: 12px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)"><span style="width: 8px; height: 8px; background: {{accent}}" aria-hidden="true"></span>System online · Singles · Sealed · Tournaments</p>
+<h1 style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: clamp(34px, 4.4vw, 58px); line-height: 0.98; letter-spacing: -0.01em; text-transform: uppercase">Pull it.<br>Trade it.<br><span style="color: var(--ink-accent)">Play it here.</span></h1>
+<p style="margin: 0; max-width: 540px; font-size: 16px; color: var(--muted)">Your local hub for Pokémon, Magic: The Gathering, Yu-Gi-Oh!, One Piece and more. Thousands of singles, fresh sealed product, and a full table every game night.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<a href="#shop" class="cut" style="text-decoration: none; background: {{accent}}; color: #1A1D23; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 22px">Browse the cases</a>
+<a href="#events" style="text-decoration: none; border: 1px solid #FFB8D9; color: var(--ink-rose); font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 11px 22px">This week’s events</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: var(--muted)">
+<span style="border: 1px solid var(--line); background: var(--surface); padding: 8px 14px">STATUS · OPEN [HOURS]</span>
+<span style="border: 1px solid var(--line); background: var(--surface); padding: 8px 14px">LOC · [STREET ADDRESS]</span>
+</div>
+</div>
+</section>
+
+<section aria-label="Games we carry" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--band)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 600; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text2)">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 400; font-size: 12px; letter-spacing: 0.16em; color: var(--ink-rose)">// We carry</span>
+<span>Pokémon</span><span>Magic: The Gathering</span><span>Yu-Gi-Oh!</span><span>One Piece</span><span>Lorcana</span><span>Sports cards</span>
+</div>
+</section>
+
+<section id="shop" style="max-width: 1120px; margin: 0 auto; padding: 72px 24px 40px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 620px">
+<p style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)">01 // In the case this week</p>
+<h2 style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.02; text-transform: uppercase">Featured singles</h2>
+<p style="margin: 0; color: var(--muted)">A rotating pick from our showcase. Every card is graded for condition in store — ask to see anything up close.</p>
+</div>
+<div role="group" aria-label="Filter by game" style="display: flex; flex-wrap: wrap; gap: 8px">
+<template data-for="tabs" data-as="tab">
+<button type="button" data-click="tab.pick" aria-pressed="{{tab.pressed}}" style="{{tab.style}}">{{tab.label}}</button>
+</template>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px">
+<template data-for="cards" data-as="card">
+<article class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 14px; display: flex; flex-direction: column; gap: 14px">
+<div class="cutsm" role="img" aria-label="Image coming soon" style="aspect-ratio: 63 / 88; background: var(--surface2); border: 1px dashed var(--line2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--muted2)">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="9" cy="10" r="1.8"></circle><path d="M21 16l-5-5-9 9"></path></svg>
+<span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase">Image coming soon</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2)">{{card.game}}</span>
+<h3 style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 16px; font-weight: 700">{{card.name}}</h3>
+<span style="font-size: 14px; color: var(--muted)">{{card.detail}}</span>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line)">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 500; font-size: 17px; color: var(--ink-accent)">[PRICE]</span>
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-rose); border: 1px solid #FFB8D9; padding: 4px 8px">{{card.condition}}</span>
+</div>
+</article>
+</template>
+</div>
+</section>
+
+<section aria-label="Shop categories" style="max-width: 1120px; margin: 0 auto; padding: 16px 24px 72px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px">
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><rect x="5" y="3" width="12" height="17"></rect><path d="M9 7h4M9 11h4"></path></svg>
+<h3 style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 19px; font-weight: 700; text-transform: uppercase">Singles</h3>
+<p style="margin: 0; color: var(--muted)">Staples, chase cards and that one piece your deck is missing — sorted by game and set.</p>
+</div>
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"></path><path d="M3 8l9 5 9-5M12 13v8"></path></svg>
+<h3 style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 19px; font-weight: 700; text-transform: uppercase">Sealed product</h3>
+<p style="margin: 0; color: var(--muted)">Booster boxes, packs, starter decks and collector sets, with pre-orders open for upcoming releases.</p>
+</div>
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path></svg>
+<h3 style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 19px; font-weight: 700; text-transform: uppercase">Supplies</h3>
+<p style="margin: 0; color: var(--muted)">Sleeves, binders, deck boxes, playmats and top-loaders to keep your collection mint.</p>
+</div>
+</div>
+</section>
+
+<section id="events" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--band)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 72px 24px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 640px">
+<p style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-rose)">02 // Game nights &amp; tournaments</p>
+<h2 style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.02; text-transform: uppercase">Weekly schedule</h2>
+<p style="margin: 0; color: var(--muted)">New players welcome at every event. Loaner decks available — just ask at the counter.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<template data-for="events" data-as="ev">
+<div class="cut" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; padding: 16px 22px; background: var(--surface); border: 1px solid var(--line)">
+<div style="flex: 0 0 120px; display: flex; flex-direction: column">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 19px; text-transform: uppercase; color: var(--ink-accent)">{{ev.day}}</span>
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: var(--muted2)">[TIME]</span>
+</div>
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 600">{{ev.name}}</span>
+<span style="color: var(--muted)">{{ev.detail}}</span>
+</div>
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: var(--text2); border: 1px solid var(--line); padding: 8px 12px">ENTRY [FEE]</span>
+<a href="#visit" class="cutsm" style="text-decoration: none; background: #FFB8D9; color: #1A1D23; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 18px">Reserve a seat</a>
+</div>
+</template>
+</div>
+</div>
+</section>
+
+
+
+<section id="visit" style="border-top: 1px solid var(--line)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 72px 24px; display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)">04 // Visit the shop</p>
+<h2 style="margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.02; text-transform: uppercase">Come say hi</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 12px; letter-spacing: 0.12em; color: var(--muted2)">ADDRESS</span>
+<span style="color: var(--text2)">[STREET ADDRESS]<br>[CITY, POSTAL CODE]</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 12px; letter-spacing: 0.12em; color: var(--muted2)">CONTACT</span>
+<span style="color: var(--text2)">[PHONE] · [EMAIL]</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<a href="#visit" class="cut" style="text-decoration: none; background: {{accent}}; color: #1A1D23; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 22px">Get directions</a>
+<a href="#visit" style="text-decoration: none; border: 1px solid var(--line); color: var(--text); font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 11px 22px">Call the shop</a>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 22px 26px">
+<h3 style="margin: 0 0 14px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em">Opening hours</h3>
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 10px; font-size: 16px">
+<dt style="color: var(--muted)">Mon – Thu</dt><dd style="margin: 0; text-align: right; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">[HOURS]</dd>
+<dt style="color: var(--muted)">Friday</dt><dd style="margin: 0; text-align: right; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">[HOURS]</dd>
+<dt style="color: var(--muted)">Saturday</dt><dd style="margin: 0; text-align: right; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">[HOURS]</dd>
+<dt style="color: var(--muted)">Sunday</dt><dd style="margin: 0; text-align: right; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">[HOURS]</dd>
+</dl>
+</div>
+</div>
+</div>
+</section>
+
+<section id="join" style="border-top: 1px solid var(--line); background: var(--band)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 72px 24px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)">05 // Stay in the loop</p>
+<h2 style="margin: 0; font-weight: 700; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.05; text-transform: uppercase">Join the list</h2>
+<p style="margin: 0; color: var(--muted); max-width: 440px">Be first to hear about restocks, pre-orders and tournament sign-ups. One message a week, tops — unsubscribe any time.</p>
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 6px; color: var(--text2)">
+<span style="display: flex; gap: 10px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>New set and restock alerts</span>
+<span style="display: flex; gap: 10px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Early access to pre-orders</span>
+<span style="display: flex; gap: 10px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Weekly event reminders</span>
+</div>
+</div>
+<div class="cut" style="flex: 1 1 440px; min-width: 0; background: var(--surface); border: 1px solid var(--line); padding: 28px">
+<div data-if="joined">
+<div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 24px 0">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>
+<h3 style="margin: 0; font-size: 22px; font-weight: 700">You’re on the list!</h3>
+<p style="margin: 0; color: var(--muted)">We’ll send updates by {{channel}}. See you at the shop.</p>
+<button type="button" data-click="resetJoin" style="font: inherit; font-size: 14px; color: var(--ink-accent); background: none; border: none; padding: 10px 0; cursor: pointer; text-decoration: underline">Sign up someone else</button>
+</div>
+</div>
+<div data-if="notJoined">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="join-name" style="font-size: 13px; font-weight: 600; color: var(--text2)">Name</label>
+<input id="join-name" type="text" autocomplete="name" placeholder="Your name" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--line2)">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span id="join-channel" style="font-size: 13px; font-weight: 600; color: var(--text2)">Send me updates on</span>
+<div role="group" aria-labelledby="join-channel" style="display: flex; flex-wrap: wrap; gap: 8px">
+<template data-for="channels" data-as="ch">
+<button type="button" data-click="ch.pick" aria-pressed="{{ch.pressed}}" style="{{ch.style}}">{{ch.label}}</button>
+</template>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="join-contact" style="font-size: 13px; font-weight: 600; color: var(--text2)">{{contactLabel}}</label>
+<input id="join-contact" type="text" placeholder="{{contactHint}}" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--line2)">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span id="join-games" style="font-size: 13px; font-weight: 600; color: var(--text2)">Games I play</span>
+<div role="group" aria-labelledby="join-games" style="display: flex; flex-wrap: wrap; gap: 8px">
+<template data-for="gameChips" data-as="g">
+<button type="button" data-click="g.toggle" aria-pressed="{{g.pressed}}" style="{{g.style}}">{{g.label}}</button>
+</template>
+</div>
+</div>
+<label style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted)"><input type="checkbox" style="width: 18px; height: 18px; margin: 2px 0 0; accent-color: #2457C5">I agree to receive updates from [SHOP NAME] and can opt out any time.</label>
+<button type="button" data-click="join" class="cut" style="font: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; min-height: 48px; background: {{accent}}; color: #1A1D23; border: none; cursor: pointer">Sign me up</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer style="border-top: 1px solid var(--line); background: var(--band)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: var(--muted2)">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text)">[SHOP NAME]</span>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 24px; text-transform: uppercase">
+<a href="shop.html" style="text-decoration: none; color: var(--muted2)">Shop</a>
+<a href="#events" style="text-decoration: none; color: var(--muted2)">Events</a>
+<a href="sell.html" style="text-decoration: none; color: var(--muted2)">Sell</a>
+<a href="#join" style="text-decoration: none; color: var(--muted2)">Join the list</a>
+<a href="#visit" style="text-decoration: none; color: var(--muted2)">Visit</a>
+</nav>
+<span>© 2026 [SHOP NAME]</span>
+</div>
+</footer>
+
+</div>
+<script src="assets/runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { game: 'All', dark: null, channel: 'WhatsApp', picks: [], joined: false };
+  }
+  renderVals() {
+    const accent = this.props.accent ?? '#BFD9FF';
+    const game = (this.state && this.state.game) || 'All';
+    const tints = { 'Pokémon': '#FFE3A3', 'Magic': '#BFD9FF', 'Yu-Gi-Oh!': '#FFC4E1', 'One Piece': '#BFE3FF' };
+    const all = [
+      { game: 'Pokémon', name: '[Card name]', detail: '[Set] · Holo rare', condition: 'Near Mint' },
+      { game: 'Magic', name: '[Card name]', detail: '[Set] · Mythic', condition: 'Near Mint' },
+      { game: 'Yu-Gi-Oh!', name: '[Card name]', detail: '[Set] · Secret rare', condition: 'Lightly Played' },
+      { game: 'One Piece', name: '[Card name]', detail: '[Set] · Alt art', condition: 'Near Mint' },
+      { game: 'Pokémon', name: '[Card name]', detail: '[Set] · Full art', condition: 'Graded [GRADE]' },
+      { game: 'Magic', name: '[Card name]', detail: '[Set] · Foil', condition: 'Near Mint' },
+      { game: 'Yu-Gi-Oh!', name: '[Card name]', detail: '[Set] · Ultra rare', condition: 'Near Mint' },
+      { game: 'One Piece', name: '[Card name]', detail: '[Set] · Leader', condition: 'Lightly Played' }
+    ];
+    const cards = all
+      .filter((c) => game === 'All' || c.game === game)
+      .map((c) => ({
+        ...c,
+        frame: 'aspect-ratio: 63 / 88; padding: 2px; box-sizing: border-box; display: flex; background: ' + tints[c.game]
+      }));
+    const tabs = ['All', 'Pokémon', 'Magic', 'Yu-Gi-Oh!', 'One Piece'].map((label) => {
+      const on = label === game;
+      return {
+        label,
+        pressed: on ? 'true' : 'false',
+        pick: () => this.setState({ game: label }),
+        style: "font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; min-height: 40px; padding: 0 14px; cursor: pointer; " +
+          (on ? 'background: ' + accent + '; color: #1A1D23; border: 1px solid ' + accent : 'background: var(--surface); color: var(--text2); border: 1px solid var(--line)')
+      };
+    });
+    const events = [
+      { day: 'Tuesday', name: 'Commander Night', detail: 'Casual Magic pods, all power levels welcome.' },
+      { day: 'Wednesday', name: 'Pokémon League', detail: 'Learn-to-play and standard play for all ages.' },
+      { day: 'Thursday', name: 'One Piece Locals', detail: 'Swiss rounds, prize support for top finishers.' },
+      { day: 'Friday', name: 'Yu-Gi-Oh! Tournament', detail: 'Advanced format, store prizes and packs.' },
+      { day: 'Saturday', name: 'Draft Weekend', detail: 'Booster draft for the latest set — pack included.' }
+    ];
+    const chip = (on) => "font: inherit; font-size: 13px; min-height: 40px; padding: 0 14px; cursor: pointer; " + (on ? 'background: ' + accent + '; color: #1A1D23; border: 1px solid ' + accent : 'background: var(--surface2); color: var(--text2); border: 1px solid var(--line)');
+    const channel = this.state.channel || 'WhatsApp';
+    const picks = this.state.picks || [];
+    const channels = ['WhatsApp', 'Telegram', 'Email'].map((label) => ({ label, pressed: label === channel ? 'true' : 'false', style: chip(label === channel), pick: () => this.setState({ channel: label }) }));
+    const gameChips = ['Pokémon', 'Magic', 'Yu-Gi-Oh!', 'One Piece', 'Lorcana', 'Sports'].map((label) => {
+      const on = picks.indexOf(label) !== -1;
+      return { label, pressed: on ? 'true' : 'false', style: chip(on), toggle: () => this.setState({ picks: on ? picks.filter((x) => x !== label) : picks.concat([label]) }) };
+    });
+    const contactLabel = channel === 'Email' ? 'Email address' : (channel === 'Telegram' ? 'Telegram username or phone' : 'WhatsApp number');
+    const contactHint = channel === 'Email' ? 'you@example.com' : (channel === 'Telegram' ? '@username' : '+65 ');
+    const joined = !!this.state.joined;
+    const join = () => this.setState({ joined: true });
+    const resetJoin = () => this.setState({ joined: false, picks: [] });
+    const isDark = (this.state && this.state.dark !== null && this.state.dark !== undefined) ? this.state.dark : (this.props.darkMode ?? true);
+    const toggleTheme = () => this.setState({ dark: !isDark });
+    return { accent, tabs, cards, events, channels, gameChips, channel, contactLabel, contactHint, joined, notJoined: !joined, join, resetJoin, isDark, isLight: !isDark, toggleTheme, themeClass: isDark ? 'theme-dark' : 'theme-light', themeLabel: isDark ? 'Switch to light mode' : 'Switch to dark mode' };
+  }
+}
+DC.mount(Component, {"accent": "#BFD9FF", "darkMode": true});
+</script>
+</body>
+</html>

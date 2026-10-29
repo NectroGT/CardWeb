@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your account – [SHOP NAME]</title>
+<meta name="description" content="Sign in to track orders, store credit and loyalty points.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🃏</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F8FA}
+body:has(.theme-dark){background:#121417}
+.theme-light{--bg:#F7F8FA;--band:#EEF1F5;--surface:#FFFFFF;--surface2:#F1F3F6;--line:#DFE3E8;--line2:#C3CAD3;--text:#1A1D23;--text2:#363B45;--muted:#5A606B;--muted2:#656B76;--ink-accent:#2457C5;--ink-rose:#A3336F;--icon:#5B8DEF;--header:rgba(247,248,250,0.92)}
+.theme-dark{--bg:#121417;--band:#181B20;--surface:#1E2228;--surface2:#272C33;--line:#333942;--line2:#47505B;--text:#F1F3F6;--text2:#D3D8DF;--muted:#AEB5BF;--muted2:#9EA6B1;--ink-accent:#A9C8FF;--ink-rose:#FFB8D9;--icon:#8DB2F5;--header:rgba(18,20,23,0.92)}
+a{color:var(--text)}a:hover{color:var(--ink-accent)}
+.gridbg{background-color:var(--bg);transition:background-color .2s,color .2s}
+.cut{clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.cutsm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+</style>
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="gridbg {{themeClass}}" style="color: var(--text); font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh">
+
+<header style="border-bottom: 1px solid var(--line); background: var(--header)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="index.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text)">
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M17 2l13 7.5v15L17 32 4 24.5v-15z" stroke="{{accent}}" stroke-width="2"></path><path d="M17 9l7 4v8l-7 4-7-4v-8z" fill="#FFB8D9"></path></svg>
+<span style="font-weight: 700; font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase">[SHOP NAME]</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase">
+<a href="index.html" style="text-decoration: none">Home</a>
+<a href="shop.html" style="text-decoration: none">Shop</a>
+<a href="sell.html" style="text-decoration: none">Sell</a>
+<a href="index.html" style="text-decoration: none">Events</a>
+<a href="index.html" class="cutsm" style="text-decoration: none; background: {{accent}}; color: #1A1D23; font-weight: 500; padding: 9px 16px">Get directions</a>
+<a href="shop.html" aria-label="Cart" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; position: relative"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11.2L21 7H6.2"></path><circle cx="9" cy="19.5" r="1.4"></circle><circle cx="17" cy="19.5" r="1.4"></circle></svg></a>
+<a href="account.html" aria-label="Account" aria-current="page" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; position: relative; border-color: var(--ink-accent); color: var(--ink-accent)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></a>
+<button type="button" data-click="toggleTheme" aria-label="{{themeLabel}}" title="{{themeLabel}}" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer">
+<div data-if="isDark">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+</div>
+<div data-if="isLight">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+</div>
+</button>
+</nav>
+</div>
+</header>
+
+<div data-if="loggedOut">
+<section style="max-width: 1120px; margin: 0 auto; padding: 56px 24px 80px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p style="margin: 0; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)">Your account</p>
+<h1 style="margin: 0; font-weight: 700; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.02; text-transform: uppercase">Join the shop</h1>
+<p style="margin: 0; color: var(--muted); max-width: 440px">An account makes checkout faster and keeps everything in one place.</p>
+<ul style="margin: 0; padding: 8px 0 0; list-style: none; display: flex; flex-direction: column; gap: 12px; color: var(--text2)">
+<li style="display: flex; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Track orders and pre-orders</li>
+<li style="display: flex; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>See your store credit balance</li>
+<li style="display: flex; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Earn loyalty points on every purchase</li>
+<li style="display: flex; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--icon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Save your address and payment details</li>
+</ul>
+</div>
+<div class="cut" style="flex: 1 1 420px; min-width: 0; background: var(--surface); border: 1px solid var(--line); padding: 28px; display: flex; flex-direction: column; gap: 20px">
+<div role="group" aria-label="Sign up or log in" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line)">
+<template data-for="modeTabs" data-as="m">
+<button type="button" data-click="m.pick" aria-pressed="{{m.pressed}}" style="{{m.style}}">{{m.label}}</button>
+</template>
+</div>
+<div data-if="isSignup">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="su-first" style="font-size: 13px; font-weight: 600; color: var(--text2)">First name</label><input id="su-first" type="text" autocomplete="given-name" placeholder="" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="su-last" style="font-size: 13px; font-weight: 600; color: var(--text2)">Last name</label><input id="su-last" type="text" autocomplete="family-name" placeholder="" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="su-email" style="font-size: 13px; font-weight: 600; color: var(--text2)">Email</label><input id="su-email" type="email" autocomplete="email" placeholder="you@example.com" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="su-phone" style="font-size: 13px; font-weight: 600; color: var(--text2)">Phone / WhatsApp</label><input id="su-phone" type="tel" autocomplete="tel" placeholder="+65 " style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="su-pass" style="font-size: 13px; font-weight: 600; color: var(--text2)">Password</label><input id="su-pass" type="password" autocomplete="new-password" placeholder="At least 8 characters" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+<label style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted)"><input type="checkbox" style="width: 18px; height: 18px; margin: 2px 0 0; accent-color: #2457C5">Send me restock alerts and event news</label>
+<button type="button" data-click="login" class="cut" style="font: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; min-height: 48px; background: {{accent}}; color: #1A1D23; border: none; cursor: pointer">Create account</button>
+<p style="margin: 0; font-size: 12px; color: var(--muted)">By creating an account you agree to our [TERMS] and [PRIVACY POLICY].</p>
+</div>
+</div>
+<div data-if="isLogin">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="li-email" style="font-size: 13px; font-weight: 600; color: var(--text2)">Email</label><input id="li-email" type="email" autocomplete="email" placeholder="you@example.com" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="li-pass" style="font-size: 13px; font-weight: 600; color: var(--text2)">Password</label><input id="li-pass" type="password" autocomplete="current-password" placeholder="" style="width: 100%; box-sizing: border-box; min-height: 46px; padding: 0 14px; font: inherit; color: var(--text); background: var(--surface2); border: 1px solid var(--line2)"></div>
+<a href="account.html" style="align-self: flex-start; font-size: 14px; color: var(--ink-accent)">Forgot password?</a>
+<button type="button" data-click="login" class="cut" style="font: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; min-height: 48px; background: {{accent}}; color: #1A1D23; border: none; cursor: pointer">Log in</button>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; color: var(--muted2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em"><span style="flex: 1; height: 1px; background: var(--line)"></span>or<span style="flex: 1; height: 1px; background: var(--line)"></span></div>
+<button type="button" data-click="login" style="font: inherit; font-weight: 600; min-height: 46px; background: var(--surface2); color: var(--text); border: 1px solid var(--line2); cursor: pointer">Continue with Google</button>
+</div>
+</section>
+</div>
+
+<div data-if="loggedIn">
+<section style="max-width: 1120px; margin: 0 auto; padding: 48px 24px 80px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-accent)">My account</p>
+<h1 style="margin: 0; font-weight: 700; font-size: clamp(28px, 3vw, 40px); text-transform: uppercase">Welcome back, [NAME]</h1>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="shop.html" class="cut" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; text-decoration: none; background: {{accent}}; color: #1A1D23; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase">Shop now</a>
+<button type="button" data-click="logout" style="font: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; min-height: 44px; padding: 0 20px; background: none; color: var(--text); border: 1px solid var(--line2); cursor: pointer">Log out</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px">
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 20px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2)">Store credit</span><span style="font-size: 26px; font-weight: 700">[AMOUNT]</span><span style="font-size: 13px; color: var(--muted)">Use it on anything in store or online</span></div>
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 20px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2)">Loyalty points</span><span style="font-size: 26px; font-weight: 700">[POINTS]</span><span style="font-size: 13px; color: var(--muted)">[POINTS TO NEXT REWARD] to your next reward</span></div>
+<div class="cut" style="background: var(--surface); border: 1px solid var(--line); padding: 20px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2)">Pre-orders</span><span style="font-size: 26px; font-weight: 700">[COUNT]</span><span style="font-size: 13px; color: var(--muted)">Next release: [DATE]</span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div class="cut" style="flex: 999 1 520px; min-width: 0; background: var(--surface); border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700; text-transform: uppercase">Recent orders</h2>
+<div style="overflow-x: auto">
+<table style="width: 100%; min-width: 480px; border-collapse: collapse; font-size: 14px">
+<thead><tr style="text-align: left; color: var(--text2)"><th scope="col" style="padding: 10px 8px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase">Order</th><th scope="col" style="padding: 10px 8px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase">Date</th><th scope="col" style="padding: 10px 8px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase">Status</th><th scope="col" style="padding: 10px 8px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-align: right">Total</th></tr></thead>
+<tbody>
+<template data-for="orders" data-as="o">
+<tr style="border-top: 1px solid var(--line)"><td style="padding: 12px 8px; font-weight: 600">[ORDER #]</td><td style="padding: 12px 8px; color: var(--muted)">[DATE]</td><td style="padding: 12px 8px"><span style="{{o.badge}}">{{o.status}}</span></td><td style="padding: 12px 8px; text-align: right">[TOTAL]</td></tr>
+</template>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cut" style="flex: 1 1 300px; min-width: 0; background: var(--surface); border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 700; text-transform: uppercase">Saved details</h2>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2)">Delivery address</span><span>[ADDRESS]</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2)">Payment method</span><span>Card ending [LAST 4]</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2)">Updates by</span><span>WhatsApp</span></div>
+<button type="button" style="align-self: flex-start; font: inherit; font-size: 14px; color: var(--ink-accent); background: none; border: none; padding: 10px 0; cursor: pointer; text-decoration: underline">Edit details</button>
+</div>
+</div>
+</section>
+</div>
+
+<footer style="border-top: 1px solid var(--line); background: var(--band)">
+<div style="max-width: 1120px; margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: var(--muted2)">
+<span style="font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text)">[SHOP NAME]</span>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 24px; text-transform: uppercase">
+<a href="shop.html" style="text-decoration: none; color: var(--muted2)">Shop</a>
+<a href="index.html" style="text-decoration: none; color: var(--muted2)">Events</a>
+<a href="sell.html" style="text-decoration: none; color: var(--muted2)">Sell</a>
+<a href="index.html" style="text-decoration: none; color: var(--muted2)">Join the list</a>
+<a href="index.html" style="text-decoration: none; color: var(--muted2)">Visit</a>
+</nav>
+<span>© 2026 [SHOP NAME]</span>
+</div>
+</footer>
+
+</div>
+<script src="assets/runtime.js"></script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { dark: null, mode: 'Sign up', loggedIn: false };
+  }
+  renderVals() {
+    const accent = this.props.accent ?? '#BFD9FF';
+    const st = this.state;
+    const modeTabs = ['Sign up', 'Log in'].map((label) => {
+      const on = st.mode === label;
+      return { label, pressed: on ? 'true' : 'false', pick: () => this.setState({ mode: label }),
+        style: 'font: inherit; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; min-height: 46px; border: none; cursor: pointer; ' + (on ? 'background: ' + accent + '; color: #1A1D23' : 'background: transparent; color: var(--text2)') };
+    });
+    const badge = (bg) => 'font-size: 12px; font-weight: 700; padding: 3px 10px; color: #1A1D23; background: ' + bg;
+    const orders = [
+      { status: 'Ready for pickup', badge: badge('#B5EAD7') },
+      { status: 'Pre-order', badge: badge('#FFE3A3') },
+      { status: 'Completed', badge: badge('#DFE3E8') }
+    ];
+    const isDark = (st.dark !== null && st.dark !== undefined) ? st.dark : (this.props.darkMode ?? true);
+    return {
+      accent, modeTabs, orders,
+      isSignup: st.mode === 'Sign up', isLogin: st.mode === 'Log in',
+      loggedIn: !!st.loggedIn, loggedOut: !st.loggedIn,
+      login: () => this.setState({ loggedIn: true }),
+      logout: () => this.setState({ loggedIn: false, mode: 'Log in' }),
+      isDark, isLight: !isDark, toggleTheme: () => this.setState({ dark: !isDark }),
+      themeClass: isDark ? 'theme-dark' : 'theme-light', themeLabel: isDark ? 'Switch to light mode' : 'Switch to dark mode'
+    };
+  }
+}
+DC.mount(Component, {"accent": "#BFD9FF", "darkMode": true});
+</script>
+</body>
+</html>
