@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { useStore } from '../store.jsx';
 import { CartIcon, CloseIcon, Logo, MenuIcon, MoonIcon, SunIcon, UserIcon } from './Icons.jsx';
+import { SocialLinks } from './ui.jsx';
 
 // Scroll to #section links (e.g. /#events) after navigating, otherwise to the top.
 function ScrollToHash() {
@@ -66,7 +67,10 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="container">
-        <span className="brand-name">[SHOP NAME]</span>
+        <div className="footer-brand">
+          <span className="brand-name">[SHOP NAME]</span>
+          <SocialLinks />
+        </div>
         <nav aria-label="Footer">
           <Link to="/shop">Shop</Link>
           <Link to="/#events">Events</Link>

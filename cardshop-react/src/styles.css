@@ -118,6 +118,12 @@ textarea.input { padding: 12px 14px; resize: vertical; }
 .site-footer .brand-name { font-weight: 700; font-size: 17px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 24px; text-transform: uppercase; }
 .site-footer nav a { text-decoration: none; color: var(--muted2); }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+
+/* Social media links */
+.socials { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.socials .icon-btn { color: var(--text2); }
+@media (hover: hover) { .socials .icon-btn:hover { color: var(--ink-accent); border-color: var(--ink-accent); } }
 
 /* Product image placeholder */
 .img-placeholder {

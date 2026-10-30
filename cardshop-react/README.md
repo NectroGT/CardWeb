@@ -16,7 +16,7 @@ Then open http://localhost:5173. Edits to files in `src/` show up in the browser
 
 ## Files
 
-- `src/data.js` – products, featured singles, events and the wanted list. **Edit your stock here.**
+- `src/data.js` – products, featured singles, events, the wanted list and your social media links. **Edit your stock and handles here.**
 - `src/pages/` – one file per page: `Home.jsx`, `Shop.jsx`, `Sell.jsx`, `Account.jsx`
 - `src/components/Layout.jsx` – header and footer shared by every page
 - `src/components/ui.jsx` – small shared pieces (filter chips, form fields, image placeholder)

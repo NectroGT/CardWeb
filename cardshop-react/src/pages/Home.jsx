@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { events, featuredSingles } from '../data.js';
 import { useTitle } from '../store.jsx';
 import { SealedIcon, SinglesIcon, SuppliesIcon, Tick } from '../components/Icons.jsx';
-import { ChipGroup, ImagePlaceholder, Success } from '../components/ui.jsx';
+import { ChipGroup, ImagePlaceholder, SocialLinks, Success } from '../components/ui.jsx';
 
 const GAMES_WE_CARRY = ['Pokémon', 'Magic: The Gathering', 'Yu-Gi-Oh!', 'One Piece', 'Lorcana', 'Sports cards'];
 
@@ -141,6 +141,10 @@ function Visit() {
           <div className="stack" style={{ gap: 6 }}>
             <span className="small-caps">Contact</span>
             <span style={{ color: 'var(--text2)' }}>[PHONE] · [EMAIL]</span>
+          </div>
+          <div className="stack" style={{ gap: 10 }}>
+            <span className="small-caps">Follow us</span>
+            <SocialLinks />
           </div>
           <div className="row" style={{ gap: 14 }}>
             <a href="#visit" className="btn btn-primary cut">Get directions</a>

@@ -1,5 +1,17 @@
 // Edit the shop's products, events and wanted list here.
 
+// Social media links, shown in the footer and the Visit section.
+// Replace the [PLACEHOLDERS] with your real handles, and delete any line you don't use.
+export const socials = [
+  { name: 'Instagram', url: 'https://www.instagram.com/[HANDLE]' },
+  { name: 'Facebook', url: 'https://www.facebook.com/[PAGE]' },
+  { name: 'TikTok', url: 'https://www.tiktok.com/@[HANDLE]' },
+  { name: 'YouTube', url: 'https://www.youtube.com/@[CHANNEL]' },
+  { name: 'Discord', url: 'https://discord.gg/[INVITE CODE]' },
+  { name: 'WhatsApp', url: 'https://wa.me/[PHONE NUMBER, DIGITS ONLY]' },
+  { name: 'Telegram', url: 'https://t.me/[USERNAME]' }
+];
+
 export const featuredSingles = [
   { game: 'Pokémon', name: '[Card name]', detail: '[Set] · Holo rare', condition: 'Near Mint' },
   { game: 'Magic', name: '[Card name]', detail: '[Set] · Mythic', condition: 'Near Mint' },

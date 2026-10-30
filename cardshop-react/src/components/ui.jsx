@@ -1,4 +1,19 @@
-import { CheckCircle, ImageIcon } from './Icons.jsx';
+import { socials } from '../data.js';
+import { CheckCircle, ImageIcon, SocialIcon } from './Icons.jsx';
+
+export function SocialLinks() {
+  return (
+    <ul className="socials">
+      {socials.map((s) => (
+        <li key={s.name}>
+          <a href={s.url} className="icon-btn" target="_blank" rel="noopener noreferrer" aria-label={`[SHOP NAME] on ${s.name}`} title={s.name}>
+            <SocialIcon name={s.name} />
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 // A row of toggle buttons. With `multi`, `value` is an array and each option toggles.
 export function ChipGroup({ options, value, onChange, multi = false, plain = false, label, labelledBy }) {

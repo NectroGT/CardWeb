@@ -98,6 +98,47 @@ export function LockIcon() {
   );
 }
 
+// Social media icons, drawn in the same outline style as the rest of the site.
+const SOCIAL_PATHS = {
+  Instagram: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" />
+    </>
+  ),
+  Facebook: <path d="M14.5 8H17V4.5h-2.5A4 4 0 0 0 10.5 8.5V11H8v3.5h2.5V21H14v-6.5h2.6L17 11h-3V9a1 1 0 0 1 1-1z" />,
+  TikTok: <path d="M14 3.5v11a3.5 3.5 0 1 1-3.5-3.5M14 3.5c.6 2.6 2.6 4.5 5.5 4.8" />,
+  YouTube: (
+    <>
+      <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
+      <path d="M10 9.3v5.4l4.6-2.7z" fill="currentColor" />
+    </>
+  ),
+  Discord: (
+    <>
+      <path d="M8.5 6c-1.6.3-3 .9-4.3 1.7C2.6 10.6 2 13.5 2.3 16.4c1.5 1.1 3 1.8 4.7 2.3l1.1-1.9M15.5 6c1.6.3 3 .9 4.3 1.7 1.6 2.9 2.2 5.8 1.9 8.7-1.5 1.1-3 1.8-4.7 2.3l-1.1-1.9M7 16c3.3 1.5 6.7 1.5 10 0M7.6 7.6c2.9-1 5.9-1 8.8 0" />
+      <circle cx="9" cy="12.3" r="1.2" fill="currentColor" stroke="none" />
+      <circle cx="15" cy="12.3" r="1.2" fill="currentColor" stroke="none" />
+    </>
+  ),
+  WhatsApp: (
+    <>
+      <path d="M4 20l1.2-3.9A8.5 8.5 0 1 1 8 18.8z" />
+      <path d="M9.2 8.6c-.4 2.9 2.9 6.6 6.2 6.2l.6-1.6-1.8-.9-1 .8c-1.2-.5-2.1-1.4-2.6-2.6l.8-1-.9-1.8z" />
+    </>
+  ),
+  Telegram: <path d="M21 4L2.8 11.1l6.4 2.3M21 4l-3.2 16-8.6-6.6M21 4L9.2 13.4V19l3.1-3.3" />
+};
+
+export function SocialIcon({ name }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.7" {...line}>
+      {SOCIAL_PATHS[name]}
+    </svg>
+  );
+}
+
 const cat = { fill: 'none', stroke: 'var(--icon)', strokeWidth: 1.6, strokeLinecap: 'square', 'aria-hidden': true };
 
 export function SinglesIcon() {
