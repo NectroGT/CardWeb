@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { products } from './data.js';
+import { makeSampleOrders, products } from './data.js';
 
 const StoreContext = createContext(null);
 
@@ -31,6 +31,11 @@ function save(key, value) {
 export function StoreProvider({ children }) {
   const [dark, setDark] = useState(() => load('theme-dark', true));
   const [cart, setCart] = useState(() => cleanCart(load('cart', {})));
+  // Orders are kept in this browser only until a real database is connected (see README).
+  const [orders, setOrders] = useState(() => {
+    const saved = load('orders', null);
+    return Array.isArray(saved) ? saved : makeSampleOrders();
+  });
 
   useEffect(() => {
     save('theme-dark', dark);
@@ -38,6 +43,17 @@ export function StoreProvider({ children }) {
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#121417' : '#F7F8FA');
   }, [dark]);
   useEffect(() => save('cart', cart), [cart]);
+  useEffect(() => save('orders', orders), [orders]);
+  // Show orders placed in another tab straight away, e.g. the shop open in one tab and admin in another.
+  useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key !== 'orders') return;
+      const saved = load('orders', []);
+      setOrders(Array.isArray(saved) ? saved : []);
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   const setQty = (id, n) => setCart((c) => {
     const next = { ...c };
@@ -45,13 +61,23 @@ export function StoreProvider({ children }) {
     return next;
   });
 
+  const addOrder = (order) => {
+    const id = Date.now().toString(36).slice(-6).toUpperCase();
+    setOrders((os) => [{ ...order, id, placedAt: new Date().toISOString(), status: 'to-pack', packed: [] }, ...os]);
+    return id;
+  };
+
   const value = {
     dark,
     toggleTheme: () => setDark((d) => !d),
     cart,
     setQty,
     clearCart: () => setCart({}),
-    cartCount: Object.values(cart).reduce((a, n) => a + n, 0)
+    cartCount: Object.values(cart).reduce((a, n) => a + n, 0),
+    orders,
+    addOrder,
+    updateOrder: (id, patch) => setOrders((os) => os.map((o) => (o.id === id ? { ...o, ...patch } : o))),
+    clearSampleOrders: () => setOrders((os) => os.filter((o) => !o.sample))
   };
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

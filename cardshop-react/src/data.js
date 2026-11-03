@@ -69,3 +69,21 @@ export const sampleOrders = [
   { status: 'Pre-order', color: '#FFE3A3' },
   { status: 'Completed', color: '#DFE3E8' }
 ];
+
+// Example orders so the admin page has something to show until real ones come in.
+// Staff can remove them with "Clear sample orders" on the admin page.
+export function makeSampleOrders() {
+  const ago = (min) => new Date(Date.now() - min * 60000).toISOString();
+  const item = (id, qty) => {
+    const p = products.find((x) => x.id === id);
+    return { id: p.id, name: p.name, game: p.game, type: p.type, detail: p.detail, qty };
+  };
+  const order = (id, min, fields) => ({ id, sample: true, placedAt: ago(min), status: 'to-pack', packed: [], address: '', ...fields });
+  return [
+    order('S1001', 12, { customer: { name: 'Alex Tan', phone: '+65 9123 4567', email: 'alex@example.com' }, fulfilment: 'Store pickup', payment: 'PayNow', paid: true, items: [item(1, 1), item(9, 2)] }),
+    order('S1002', 40, { customer: { name: 'Priya Nair', phone: '+65 8234 5678', email: 'priya@example.com' }, fulfilment: 'Delivery', address: '12 Example Road, #05-12, 123456', payment: 'Credit / debit card', paid: true, items: [item(5, 1), item(10, 1), item(2, 1)] }),
+    order('S1003', 95, { customer: { name: 'Marcus Lee', phone: '+65 9345 6789', email: 'marcus@example.com' }, fulfilment: 'Delivery', address: '88 Sample Avenue, 654321', payment: 'PayNow', paid: false, items: [item(8, 2)] }),
+    order('S1004', 180, { customer: { name: 'Jamie Lim', phone: '+65 8456 7890', email: 'jamie@example.com' }, fulfilment: 'Store pickup', payment: 'Pay in store', paid: false, items: [item(11, 1), item(7, 6)], status: 'ready', packed: [11, 7] }),
+    order('S1005', 1500, { customer: { name: 'Wei Ling Chua', phone: '+65 9567 8901', email: 'weiling@example.com' }, fulfilment: 'Store pickup', payment: 'PayNow', paid: true, items: [item(3, 1), item(4, 1)], status: 'done', packed: [3, 4] })
+  ];
+}

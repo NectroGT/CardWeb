@@ -182,8 +182,23 @@ function Checkout({ onBack, onPlaced }) {
   const pay = payOptions.includes(payPick) ? payPick : 'PayNow';
   const placeLabel = pay === 'Pay in store' ? 'Place order' : (pay === 'PayNow' ? 'Place order & pay with PayNow' : 'Pay now');
 
+  // Card numbers are never saved, only which payment method was chosen.
+  const submit = (e) => {
+    e.preventDefault();
+    const f = e.currentTarget.elements;
+    const v = (id) => (f[id] ? f[id].value.trim() : '');
+    onPlaced({
+      customer: { name: v('co-name'), phone: v('co-phone'), email: v('co-email') },
+      fulfilment: fulfil,
+      address: delivery ? [v('co-addr'), v('co-unit'), v('co-postal')].filter(Boolean).join(', ') : '',
+      payment: pay,
+      paid: pay === 'Credit / debit card',
+      items: items.map(({ id, name, game, type, detail, qty }) => ({ id, name, game, type, detail, qty }))
+    });
+  };
+
   return (
-    <form aria-label="Checkout" className="container stack" style={{ paddingTop: 40, paddingBottom: 72, gap: 24 }} onSubmit={(e) => { e.preventDefault(); onPlaced(delivery); }}>
+    <form aria-label="Checkout" className="container stack" style={{ paddingTop: 40, paddingBottom: 72, gap: 24 }} onSubmit={submit}>
       <button type="button" className="link-btn" style={{ textDecoration: 'none' }} onClick={onBack}>← Back to shop</button>
       <h1 className="h-page" style={{ fontSize: 'clamp(28px, 3vw, 40px)' }}>Checkout</h1>
       <div className="row" style={{ gap: 24, alignItems: 'flex-start' }}>
@@ -261,11 +276,11 @@ function Checkout({ onBack, onPlaced }) {
   );
 }
 
-function Done({ delivery, onKeepShopping }) {
+function Done({ orderId, delivery, onKeepShopping }) {
   return (
     <section aria-label="Order confirmed" className="stack" style={{ maxWidth: 640, margin: '0 auto', padding: '72px 24px 96px', gap: 16, alignItems: 'flex-start' }}>
       <CheckCircle size={48} />
-      <p className="eyebrow">Order [ORDER #]</p>
+      <p className="eyebrow">Order #{orderId}</p>
       <h1 className="h-page" style={{ fontSize: 'clamp(28px, 3vw, 40px)' }}>Thanks for your order!</h1>
       <p className="muted">
         {delivery ? 'Your order will arrive in [DELIVERY TIME].' : 'We’ll message you when it’s ready to collect.'} A confirmation has been sent to your email and WhatsApp.
@@ -280,10 +295,10 @@ function Done({ delivery, onKeepShopping }) {
 
 export default function Shop() {
   useTitle('Shop online – [SHOP NAME]');
-  const { clearCart } = useStore();
+  const { clearCart, addOrder } = useStore();
   const { count } = useCartItems();
   const [step, setStep] = useState('browse');
-  const [delivery, setDelivery] = useState(false);
+  const [placed, setPlaced] = useState(null);
 
   // Clicking Shop or the cart icon while in checkout goes back to the shop. This runs during render
   // (not in an effect) so #cart exists by the time the page scrolls to it.
@@ -297,10 +312,10 @@ export default function Shop() {
   const go = (s) => { setStep(s); window.scrollTo(0, 0); };
 
   if (step === 'checkout' && count > 0) {
-    return <Checkout onBack={() => go('browse')} onPlaced={(d) => { setDelivery(d); clearCart(); go('done'); }} />;
+    return <Checkout onBack={() => go('browse')} onPlaced={(order) => { setPlaced({ id: addOrder(order), delivery: order.fulfilment === 'Delivery' }); clearCart(); go('done'); }} />;
   }
-  if (step === 'done') {
-    return <Done delivery={delivery} onKeepShopping={() => go('browse')} />;
+  if (step === 'done' && placed) {
+    return <Done orderId={placed.id} delivery={placed.delivery} onKeepShopping={() => go('browse')} />;
   }
   return <Browse onCheckout={() => go('checkout')} />;
 }

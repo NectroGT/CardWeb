@@ -24,6 +24,16 @@ Then open http://localhost:5173. Edits to files in `src/` show up in the browser
 - `src/store.jsx` – the cart and light/dark theme, saved in the browser so they survive page changes and reloads
 - `src/styles.css` – colours, theme and shared styles
 
+## Orders admin page
+
+Staff can see and pack orders at `/admin` (e.g. http://localhost:5173/admin). It isn't linked from the site.
+
+- **To pack → Ready → Completed**: tick each item as you pack it, then mark the order packed, then collected or shipped.
+- Search by order number, name, phone or email; mark PayNow and pay-in-store orders as paid; print a packing slip.
+- It starts with a few sample orders. "Clear sample orders" removes them.
+
+**Demo only for now:** orders are saved in the browser they were placed in, so the admin page only sees orders placed on the same computer and browser, and anyone who knows the address can open it. Before going live, connect a database (e.g. Supabase) so orders are stored centrally, and put the page behind a staff login.
+
 ## Publish on GitHub Pages
 
 The repository includes a workflow (`.github/workflows/deploy.yml`) that builds and publishes the site whenever you push to `main`.

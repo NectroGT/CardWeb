@@ -7,6 +7,7 @@ import Home from './pages/Home.jsx';
 import Shop from './pages/Shop.jsx';
 import Sell from './pages/Sell.jsx';
 import Account from './pages/Account.jsx';
+import Admin from './pages/Admin.jsx';
 import './styles.css';
 
 createRoot(document.getElementById('root')).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="shop" element={<Shop />} />
             <Route path="sell" element={<Sell />} />
             <Route path="account" element={<Account />} />
+            <Route path="admin" element={<Admin />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>

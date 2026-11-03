@@ -148,9 +148,40 @@ textarea.input { padding: 12px 14px; resize: vertical; }
 /* Product grids, cart and order summary */
 .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 16px; }
 .side-panel { position: sticky; top: 24px; }
-.cart-panel { max-height: calc(100vh - 48px); overflow-y: auto; box-sizing: border-box; }
+.cart-panel, .detail-panel { max-height: calc(100vh - 48px); overflow-y: auto; box-sizing: border-box; }
 .offer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
 .mobile-cart-bar, .mobile-cart-spacer { display: none; }
+
+/* Admin: orders */
+.admin-note { font-size: 13px; color: var(--text2); background: var(--surface2); border: 1px solid var(--line); border-radius: var(--radius-btn); padding: 10px 14px; }
+.admin-warn { margin: 0; font-size: 13px; font-weight: 600; color: var(--ink-rose); }
+.order-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.order-row {
+  width: 100%; box-sizing: border-box; display: grid; gap: 6px; padding: 14px 16px; text-align: left; cursor: pointer;
+  font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-btn);
+}
+.order-row[aria-current="true"] { border-color: var(--ink-accent); box-shadow: inset 3px 0 0 var(--ink-accent); }
+@media (hover: hover) { .order-row:hover { border-color: var(--line2); } }
+.badge {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 6px; color: var(--text2); background: var(--surface2); border: 1px solid var(--line);
+}
+.badge-blue, .badge-green, .badge-grey, .badge-rose, .badge-amber { color: var(--on-accent); border-color: transparent; }
+.badge-blue { background: var(--accent); }
+.badge-green { background: #B5EAD7; }
+.badge-grey { background: #DFE3E8; }
+.badge-rose { background: var(--rose); }
+.badge-amber { background: #FFE3A3; }
+.order-facts { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 16px; font-size: 14px; }
+.order-facts dt { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); padding-top: 2px; }
+.order-facts dd { margin: 0; overflow-wrap: anywhere; }
+.order-facts a { color: var(--ink-accent); }
+.pack-list { margin: 0; padding: 0; list-style: none; }
+.pack-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--line); cursor: pointer; }
+.pack-item input { width: 22px; height: 22px; margin: 1px 0 0; flex: none; accent-color: #2457C5; }
+.pack-item:has(input:checked) { color: var(--muted); }
+.pack-qty { font-weight: 700; min-width: 28px; }
+.print-slip { display: none; }
 
 /* ---------- Phones and touch screens (iPhone and Android) ---------- */
 
@@ -198,7 +229,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   [id] { scroll-margin-top: 84px; }
 
   .side-panel { position: static; }
-  .cart-panel { max-height: none; overflow: visible; }
+  .cart-panel, .detail-panel { max-height: none; overflow: visible; }
 
   .mobile-cart-bar {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -223,4 +254,14 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .product-grid h3 { font-size: 14px !important; }
   .product-grid .btn { font-size: 12px !important; letter-spacing: 0.03em !important; }
   .img-placeholder span { font-size: 10px; }
+}
+
+/* Printing a packing slip from the admin page: only the slip, black on white. */
+@media print {
+  .site-header, .site-footer, .no-print, .mobile-cart-bar { display: none !important; }
+  body, .app { background: #fff !important; color: #000 !important; min-height: 0; transition: none !important; }
+  .print-slip { display: block; font-size: 12pt; }
+  .print-slip h1 { font-size: 18pt; margin: 0 0 8pt; }
+  .print-slip table { width: 100%; border-collapse: collapse; margin: 12pt 0; }
+  .print-slip th, .print-slip td { border: 1px solid #000; padding: 6pt 8pt; text-align: left; vertical-align: top; }
 }
