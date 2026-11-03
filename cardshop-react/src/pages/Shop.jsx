@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { products } from '../data.js';
 import { useStore, useTitle } from '../store.jsx';
 import { CheckCircle, LockIcon } from '../components/Icons.jsx';
@@ -78,12 +78,12 @@ function Cart({ onCheckout }) {
         ))}
       </ul>
       <Totals rows={[['Subtotal', '[SUBTOTAL]'], ['Delivery', 'Calculated at checkout']]} />
-      <button type="button" className="btn btn-primary btn-block cut" disabled={count === 0} onClick={onCheckout}>Checkout</button>
+      <button type="button" className="btn btn-primary btn-block" disabled={count === 0} onClick={onCheckout}>Checkout</button>
     </aside>
   );
 }
 
-const qtyBtn = { width: 40, height: 40, background: 'none', border: 'none', color: 'var(--text)', font: 'inherit', fontSize: 18, cursor: 'pointer' };
+const qtyBtn = { width: 40, height: 40, background: 'none', border: 'none', color: 'var(--text)', font: 'inherit', fontSize: 18, cursor: 'pointer', borderRadius: 'var(--radius-btn)' };
 
 function Totals({ rows }) {
   return (
@@ -167,7 +167,7 @@ function MobileCartBar({ onCheckout }) {
         <button type="button" className="link-btn" style={{ alignSelf: 'auto', fontSize: 15 }} onClick={() => document.getElementById('cart').scrollIntoView({ behavior: 'smooth' })}>
           View cart · {plural(count)}
         </button>
-        <button type="button" className="btn btn-primary cut" onClick={onCheckout}>Checkout</button>
+        <button type="button" className="btn btn-primary" onClick={onCheckout}>Checkout</button>
       </div>
     </>
   );
@@ -183,7 +183,7 @@ function Checkout({ onBack, onPlaced }) {
   const placeLabel = pay === 'Pay in store' ? 'Place order' : (pay === 'PayNow' ? 'Place order & pay with PayNow' : 'Pay now');
 
   return (
-    <section aria-label="Checkout" className="container stack" style={{ paddingTop: 40, paddingBottom: 72, gap: 24 }}>
+    <form aria-label="Checkout" className="container stack" style={{ paddingTop: 40, paddingBottom: 72, gap: 24 }} onSubmit={(e) => { e.preventDefault(); onPlaced(delivery); }}>
       <button type="button" className="link-btn" style={{ textDecoration: 'none' }} onClick={onBack}>← Back to shop</button>
       <h1 className="h-page" style={{ fontSize: 'clamp(28px, 3vw, 40px)' }}>Checkout</h1>
       <div className="row" style={{ gap: 24, alignItems: 'flex-start' }}>
@@ -194,9 +194,9 @@ function Checkout({ onBack, onPlaced }) {
               <Link to="/account" style={{ fontSize: 14, color: 'var(--ink-accent)' }}>Have an account? Sign in</Link>
             </div>
             <div className="grid-fields">
-              <Field id="co-name" label="Full name" type="text" autoComplete="name" />
-              <Field id="co-phone" label="Phone / WhatsApp" type="tel" autoComplete="tel" placeholder="+65 " />
-              <Field id="co-email" label="Email" type="email" autoComplete="email" placeholder="you@example.com" />
+              <Field id="co-name" label="Full name" type="text" autoComplete="name" required />
+              <Field id="co-phone" label="Phone / WhatsApp" type="tel" autoComplete="tel" placeholder="+65 " required />
+              <Field id="co-email" label="Email" type="email" autoComplete="email" placeholder="you@example.com" required />
             </div>
           </div>
 
@@ -206,9 +206,9 @@ function Checkout({ onBack, onPlaced }) {
             {delivery ? (
               <>
                 <div className="grid-fields">
-                  <Field id="co-addr" className="span-all" label="Address" type="text" autoComplete="street-address" />
+                  <Field id="co-addr" className="span-all" label="Address" type="text" autoComplete="street-address" required />
                   <Field id="co-unit" label="Unit number" type="text" placeholder="#00-00" />
-                  <Field id="co-postal" label="Postal code" type="text" inputMode="numeric" autoComplete="postal-code" />
+                  <Field id="co-postal" label="Postal code" type="text" inputMode="numeric" autoComplete="postal-code" required />
                 </div>
                 <p className="muted" style={{ fontSize: 13 }}>Delivery fee [DELIVERY FEE] · arrives in [DELIVERY TIME].</p>
               </>
@@ -229,9 +229,9 @@ function Checkout({ onBack, onPlaced }) {
             {pay === 'Credit / debit card' && (
               <>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 14 }}>
-                  <Field id="co-card" className="span-all" label="Card number" type="text" inputMode="numeric" autoComplete="cc-number" placeholder="1234 5678 9012 3456" />
-                  <Field id="co-exp" label="Expiry" type="text" autoComplete="cc-exp" placeholder="MM / YY" />
-                  <Field id="co-cvc" label="CVC" type="text" inputMode="numeric" autoComplete="cc-csc" placeholder="123" />
+                  <Field id="co-card" className="span-all" label="Card number" type="text" inputMode="numeric" autoComplete="cc-number" placeholder="1234 5678 9012 3456" required />
+                  <Field id="co-exp" label="Expiry" type="text" autoComplete="cc-exp" placeholder="MM / YY" required />
+                  <Field id="co-cvc" label="CVC" type="text" inputMode="numeric" autoComplete="cc-csc" placeholder="123" required />
                 </div>
                 <p className="muted" style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13 }}><LockIcon />Payments are processed securely by [PAYMENT PROVIDER].</p>
               </>
@@ -253,11 +253,11 @@ function Checkout({ onBack, onPlaced }) {
             <Totals rows={[['Subtotal', '[SUBTOTAL]'], [fulfil, delivery ? '[DELIVERY FEE]' : 'Free']]} />
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 17, fontWeight: 700, paddingTop: 6 }}><span>Total</span><span style={{ color: 'var(--ink-accent)' }}>[TOTAL]</span></div>
           </div>
-          <label className="check"><input type="checkbox" />I agree to the terms and refund policy.</label>
-          <button type="button" className="btn btn-primary btn-block cut" disabled={count === 0} onClick={() => onPlaced(delivery)}>{placeLabel}</button>
+          <label className="check"><input type="checkbox" required />I agree to the terms and refund policy.</label>
+          <button type="submit" className="btn btn-primary btn-block" disabled={count === 0}>{placeLabel}</button>
         </aside>
       </div>
-    </section>
+    </form>
   );
 }
 
@@ -271,7 +271,7 @@ function Done({ delivery, onKeepShopping }) {
         {delivery ? 'Your order will arrive in [DELIVERY TIME].' : 'We’ll message you when it’s ready to collect.'} A confirmation has been sent to your email and WhatsApp.
       </p>
       <div className="row" style={{ gap: 12, paddingTop: 8 }}>
-        <button type="button" className="btn btn-primary cut" onClick={onKeepShopping}>Keep shopping</button>
+        <button type="button" className="btn btn-primary" onClick={onKeepShopping}>Keep shopping</button>
         <Link to="/account" className="btn btn-outline">Create an account to track orders</Link>
       </div>
     </section>
@@ -284,6 +284,15 @@ export default function Shop() {
   const { count } = useCartItems();
   const [step, setStep] = useState('browse');
   const [delivery, setDelivery] = useState(false);
+
+  // Clicking Shop or the cart icon while in checkout goes back to the shop. This runs during render
+  // (not in an effect) so #cart exists by the time the page scrolls to it.
+  const { key } = useLocation();
+  const [navKey, setNavKey] = useState(key);
+  if (key !== navKey) {
+    setNavKey(key);
+    setStep('browse');
+  }
 
   const go = (s) => { setStep(s); window.scrollTo(0, 0); };
 

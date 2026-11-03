@@ -8,6 +8,7 @@ body:has(.theme-dark) { background: #121417; }
   --accent: #BFD9FF;
   --rose: #FFB8D9;
   --on-accent: #1A1D23;
+  --radius-btn: 10px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -54,7 +55,7 @@ p { margin: 0; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
   font: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  text-decoration: none; cursor: pointer; padding: 12px 22px; border: none;
+  text-decoration: none; cursor: pointer; padding: 12px 22px; border: none; border-radius: var(--radius-btn);
 }
 .btn-primary { background: var(--accent); color: var(--on-accent); }
 .btn-primary:hover { color: var(--on-accent); }
@@ -69,7 +70,7 @@ p { margin: 0; }
 .chip {
   font: inherit; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase;
   min-height: 40px; padding: 0 14px; cursor: pointer;
-  background: var(--surface2); color: var(--text2); border: 1px solid var(--line);
+  background: var(--surface2); color: var(--text2); border: 1px solid var(--line); border-radius: var(--radius-btn);
 }
 .chip.plain { text-transform: none; letter-spacing: 0; }
 .chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
@@ -94,16 +95,16 @@ textarea.input { padding: 12px 14px; resize: vertical; }
 .brand svg { flex: none; }
 .brand span { font-weight: 700; font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .header-actions { display: flex; align-items: center; gap: 28px; }
-.menu-btn, .nav-theme { display: none; }
+.icon-btn.menu-btn, .nav-theme { display: none; }
 .main-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; }
 .main-nav a { text-decoration: none; }
 .main-nav a.active { color: var(--ink-accent); font-weight: 700; }
-.nav-cta { background: var(--accent); color: var(--on-accent); font-weight: 500; padding: 9px 16px; }
+.nav-cta { background: var(--accent); color: var(--on-accent); font-weight: 500; padding: 9px 16px; border-radius: var(--radius-btn); }
 .main-nav .nav-cta:hover { color: var(--on-accent); }
 .icon-btn {
   display: inline-flex; align-items: center; justify-content: center; position: relative;
   width: 40px; height: 40px; padding: 0; box-sizing: border-box;
-  border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; cursor: pointer;
+  border: 1px solid var(--line); border-radius: var(--radius-btn); background: var(--surface); color: var(--text); text-decoration: none; cursor: pointer;
 }
 .main-nav .icon-btn.active { border-color: var(--ink-accent); color: var(--ink-accent); font-weight: 400; }
 .count-badge {
@@ -179,7 +180,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   /* Brand shrinks (with "…") rather than pushing the icons onto a second row. */
   .brand { flex: 1 1 0; gap: 10px; }
   .brand svg { width: 30px; height: 30px; }
-  .menu-btn { display: inline-flex; }
+  .icon-btn.menu-btn { display: inline-flex; }
   .theme-btn { display: none; }
   .main-nav .nav-theme {
     display: flex; align-items: center; gap: 10px; margin-top: 8px; padding: 14px 0;

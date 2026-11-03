@@ -87,8 +87,8 @@ function QuoteForm() {
   return (
     <form className="stack" style={{ gap: 18 }} onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
       <div className="grid-fields" style={{ gap: 16 }}>
-        <Field id="q-name" label="Name" type="text" autoComplete="name" placeholder="Your name" />
-        <Field id="q-phone" label="WhatsApp / phone" type="tel" autoComplete="tel" placeholder="+65 " />
+        <Field id="q-name" label="Name" type="text" autoComplete="name" placeholder="Your name" required />
+        <Field id="q-phone" label="WhatsApp / phone" type="tel" autoComplete="tel" placeholder="+65 " required />
       </div>
       <div className="stack" style={{ gap: 8 }}>
         <span id="q-kind" className="label">What are you selling?</span>
@@ -99,7 +99,7 @@ function QuoteForm() {
         <label htmlFor="q-desc" className="label">Tell us about it</label>
         <textarea id="q-desc" className="input" rows={4} placeholder="Games, sets, any standout cards, condition…" />
       </div>
-      <button type="submit" className="btn btn-primary btn-block cut">Send request</button>
+      <button type="submit" className="btn btn-primary btn-block">Send request</button>
     </form>
   );
 }
@@ -114,7 +114,7 @@ export default function Sell() {
           <h1 className="h-hero" style={{ letterSpacing: 0 }}>We buy cards</h1>
           <p className="muted" style={{ maxWidth: 520, fontSize: 16 }}>From a single chase card to a full binder or graded slabs — get a fair offer based on current market prices, paid on the spot.</p>
           <div className="row" style={{ gap: 12 }}>
-            <a href="#quote" className="btn btn-primary cut">Get a quote</a>
+            <a href="#quote" className="btn btn-primary">Get a quote</a>
             <a href="#wanted" className="btn btn-outline">See what we’re buying</a>
           </div>
         </div>

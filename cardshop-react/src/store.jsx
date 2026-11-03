@@ -1,6 +1,18 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { products } from './data.js';
 
 const StoreContext = createContext(null);
+
+// Drop anything saved in an old cart that is no longer for sale, or isn't a sensible quantity.
+function cleanCart(saved) {
+  const cart = {};
+  if (!saved || typeof saved !== 'object') return cart;
+  for (const p of products) {
+    const n = saved[p.id];
+    if (Number.isInteger(n) && n > 0) cart[p.id] = n;
+  }
+  return cart;
+}
 
 function load(key, fallback) {
   try {
@@ -18,7 +30,7 @@ function save(key, value) {
 // Theme and cart live here so they carry across pages and reloads.
 export function StoreProvider({ children }) {
   const [dark, setDark] = useState(() => load('theme-dark', true));
-  const [cart, setCart] = useState(() => load('cart', {}));
+  const [cart, setCart] = useState(() => cleanCart(load('cart', {})));
 
   useEffect(() => {
     save('theme-dark', dark);

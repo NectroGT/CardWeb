@@ -2,6 +2,12 @@
 
 // Social media links, shown in the footer and the Visit section.
 // Replace the [PLACEHOLDERS] with your real handles, and delete any line you don't use.
+// Used by the "Get directions" and "Call the shop" buttons. Phone: digits with country code, e.g. +6561234567.
+export const shopContact = {
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=[STREET ADDRESS]',
+  phone: '[PHONE]'
+};
+
 export const socials = [
   { name: 'Instagram', url: 'https://www.instagram.com/[HANDLE]' },
   { name: 'Facebook', url: 'https://www.facebook.com/[PAGE]' },

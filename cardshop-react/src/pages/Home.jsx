@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { events, featuredSingles } from '../data.js';
+import { events, featuredSingles, shopContact } from '../data.js';
 import { useTitle } from '../store.jsx';
 import { SealedIcon, SinglesIcon, SuppliesIcon, Tick } from '../components/Icons.jsx';
 import { ChipGroup, ImagePlaceholder, SocialLinks, Success } from '../components/ui.jsx';
@@ -16,9 +16,9 @@ const CATEGORIES = [
 const HOURS = ['Mon – Thu', 'Friday', 'Saturday', 'Sunday'];
 
 const CONTACT = {
-  WhatsApp: { label: 'WhatsApp number', hint: '+65 ' },
-  Telegram: { label: 'Telegram username or phone', hint: '@username' },
-  Email: { label: 'Email address', hint: 'you@example.com' }
+  WhatsApp: { label: 'WhatsApp number', hint: '+65 ', type: 'tel', autoComplete: 'tel' },
+  Telegram: { label: 'Telegram username or phone', hint: '@username', type: 'text', autoComplete: 'off' },
+  Email: { label: 'Email address', hint: 'you@example.com', type: 'email', autoComplete: 'email' }
 };
 
 function Hero() {
@@ -34,7 +34,7 @@ function Hero() {
           Your local hub for Pokémon, Magic: The Gathering, Yu-Gi-Oh!, One Piece and more. Thousands of singles, fresh sealed product, and a full table every game night.
         </p>
         <div className="row" style={{ gap: 14 }}>
-          <Link to="/#shop" className="btn btn-primary cut">Browse the cases</Link>
+          <Link to="/#shop" className="btn btn-primary">Browse the cases</Link>
           <Link to="/#events" className="btn btn-outline-rose">This week’s events</Link>
         </div>
         <div className="row muted" style={{ gap: 12, paddingTop: 8, fontSize: 13 }}>
@@ -116,7 +116,7 @@ function Events() {
                 <span className="muted">{ev.detail}</span>
               </div>
               <span style={{ fontSize: 13, color: 'var(--text2)', border: '1px solid var(--line)', padding: '8px 12px' }}>ENTRY [FEE]</span>
-              <Link to="/#visit" className="btn btn-rose cutsm">Reserve a seat</Link>
+              <Link to="/#visit" className="btn btn-rose">Reserve a seat</Link>
             </div>
           ))}
         </div>
@@ -131,7 +131,7 @@ function Visit() {
       <div className="container row" style={{ paddingTop: 72, paddingBottom: 72, gap: 48 }}>
         <div className="stack" style={{ flex: '1 1 380px', minWidth: 0, gap: 20 }}>
           <div className="stack" style={{ gap: 12 }}>
-            <p className="eyebrow">04 // Visit the shop</p>
+            <p className="eyebrow">03 // Visit the shop</p>
             <h2 className="h-section">Come say hi</h2>
           </div>
           <div className="stack" style={{ gap: 6 }}>
@@ -147,8 +147,8 @@ function Visit() {
             <SocialLinks />
           </div>
           <div className="row" style={{ gap: 14 }}>
-            <a href="#visit" className="btn btn-primary cut">Get directions</a>
-            <a href="#visit" className="btn btn-outline" style={{ borderColor: 'var(--line)' }}>Call the shop</a>
+            <a href={shopContact.mapsUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Get directions</a>
+            <a href={'tel:' + shopContact.phone} className="btn btn-outline" style={{ borderColor: 'var(--line)' }}>Call the shop</a>
           </div>
         </div>
         <div className="stack" style={{ flex: '1 1 380px', minWidth: 0, gap: 20 }}>
@@ -177,7 +177,7 @@ function JoinList() {
     <section id="join" className="band" style={{ borderBottom: 'none' }}>
       <div className="container row" style={{ paddingTop: 72, paddingBottom: 72, gap: 40, alignItems: 'flex-start' }}>
         <div className="stack" style={{ flex: '1 1 360px', minWidth: 0, gap: 14 }}>
-          <p className="eyebrow">05 // Stay in the loop</p>
+          <p className="eyebrow">04 // Stay in the loop</p>
           <h2 className="h-section">Join the list</h2>
           <p className="muted" style={{ maxWidth: 440 }}>Be first to hear about restocks, pre-orders and tournament sign-ups. One message a week, tops — unsubscribe any time.</p>
           <ul className="ticks" style={{ paddingTop: 6 }}>
@@ -195,7 +195,7 @@ function JoinList() {
             <form className="stack" style={{ gap: 18 }} onSubmit={(e) => { e.preventDefault(); setJoined(true); }}>
               <div className="field">
                 <label htmlFor="join-name" className="label">Name</label>
-                <input id="join-name" className="input" type="text" autoComplete="name" placeholder="Your name" />
+                <input id="join-name" className="input" type="text" autoComplete="name" placeholder="Your name" required />
               </div>
               <div className="stack" style={{ gap: 8 }}>
                 <span id="join-channel" className="label">Send me updates on</span>
@@ -203,14 +203,14 @@ function JoinList() {
               </div>
               <div className="field">
                 <label htmlFor="join-contact" className="label">{contact.label}</label>
-                <input id="join-contact" className="input" type="text" placeholder={contact.hint} />
+                <input id="join-contact" className="input" type={contact.type} autoComplete={contact.autoComplete} placeholder={contact.hint} required />
               </div>
               <div className="stack" style={{ gap: 8 }}>
                 <span id="join-games" className="label">Games I play</span>
                 <ChipGroup labelledBy="join-games" plain multi options={['Pokémon', 'Magic', 'Yu-Gi-Oh!', 'One Piece', 'Lorcana', 'Sports']} value={picks} onChange={setPicks} />
               </div>
-              <label className="check"><input type="checkbox" />I agree to receive updates from [SHOP NAME] and can opt out any time.</label>
-              <button type="submit" className="btn btn-primary btn-block cut">Sign me up</button>
+              <label className="check"><input type="checkbox" required />I agree to receive updates from [SHOP NAME] and can opt out any time.</label>
+              <button type="submit" className="btn btn-primary btn-block">Sign me up</button>
             </form>
           )}
         </div>

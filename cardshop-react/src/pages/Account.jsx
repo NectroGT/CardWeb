@@ -9,7 +9,7 @@ const PERKS = ['Track orders and pre-orders', 'See your store credit balance', '
 
 function ModeTabs({ mode, setMode }) {
   return (
-    <div role="group" aria-label="Sign up or log in" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', border: '1px solid var(--line)' }}>
+    <div role="group" aria-label="Sign up or log in" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 4, padding: 4, border: '1px solid var(--line)', borderRadius: 'calc(var(--radius-btn) + 4px)' }}>
       {['Sign up', 'Log in'].map((label) => {
         const on = mode === label;
         return (
@@ -19,7 +19,7 @@ function ModeTabs({ mode, setMode }) {
             aria-pressed={on}
             onClick={() => setMode(label)}
             className="btn"
-            style={{ minHeight: 46, padding: 0, letterSpacing: '0.06em', background: on ? 'var(--accent)' : 'transparent', color: on ? 'var(--on-accent)' : 'var(--text2)' }}
+            style={{ minHeight: 42, padding: 0, letterSpacing: '0.06em', background: on ? 'var(--accent)' : 'transparent', color: on ? 'var(--on-accent)' : 'var(--text2)' }}
           >
             {label}
           </button>
@@ -47,28 +47,28 @@ function SignedOut({ onLogin }) {
         {mode === 'Sign up' ? (
           <form className="stack" style={{ gap: 16 }} onSubmit={submit}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
-              <Field id="su-first" label="First name" type="text" autoComplete="given-name" />
+              <Field id="su-first" label="First name" type="text" autoComplete="given-name" required />
               <Field id="su-last" label="Last name" type="text" autoComplete="family-name" />
             </div>
-            <Field id="su-email" label="Email" type="email" autoComplete="email" placeholder="you@example.com" />
+            <Field id="su-email" label="Email" type="email" autoComplete="email" placeholder="you@example.com" required />
             <Field id="su-phone" label="Phone / WhatsApp" type="tel" autoComplete="tel" placeholder="+65 " />
-            <Field id="su-pass" label="Password" type="password" autoComplete="new-password" placeholder="At least 8 characters" />
+            <Field id="su-pass" label="Password" type="password" autoComplete="new-password" placeholder="At least 8 characters" minLength={8} required />
             <label className="check"><input type="checkbox" />Send me restock alerts and event news</label>
-            <button type="submit" className="btn btn-primary btn-block cut">Create account</button>
+            <button type="submit" className="btn btn-primary btn-block">Create account</button>
             <p className="muted" style={{ fontSize: 12 }}>By creating an account you agree to our [TERMS] and [PRIVACY POLICY].</p>
           </form>
         ) : (
           <form className="stack" style={{ gap: 16 }} onSubmit={submit}>
-            <Field id="li-email" label="Email" type="email" autoComplete="email" placeholder="you@example.com" />
-            <Field id="li-pass" label="Password" type="password" autoComplete="current-password" />
+            <Field id="li-email" label="Email" type="email" autoComplete="email" placeholder="you@example.com" required />
+            <Field id="li-pass" label="Password" type="password" autoComplete="current-password" required />
             <Link to="/account" style={{ alignSelf: 'flex-start', fontSize: 14, color: 'var(--ink-accent)' }}>Forgot password?</Link>
-            <button type="submit" className="btn btn-primary btn-block cut">Log in</button>
+            <button type="submit" className="btn btn-primary btn-block">Log in</button>
           </form>
         )}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--muted2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
           <span style={{ flex: 1, height: 1, background: 'var(--line)' }} />or<span style={{ flex: 1, height: 1, background: 'var(--line)' }} />
         </div>
-        <button type="button" onClick={onLogin} style={{ font: 'inherit', fontWeight: 600, minHeight: 46, background: 'var(--surface2)', color: 'var(--text)', border: '1px solid var(--line2)', cursor: 'pointer' }}>Continue with Google</button>
+        <button type="button" onClick={onLogin} style={{ font: 'inherit', fontWeight: 600, minHeight: 46, background: 'var(--surface2)', color: 'var(--text)', border: '1px solid var(--line2)', borderRadius: 'var(--radius-btn)', cursor: 'pointer' }}>Continue with Google</button>
       </div>
     </section>
   );
@@ -102,7 +102,7 @@ function SignedIn({ onLogout }) {
           <h1 className="h-page" style={{ fontSize: 'clamp(28px, 3vw, 40px)' }}>Welcome back, [NAME]</h1>
         </div>
         <div className="row" style={{ gap: 12 }}>
-          <Link to="/shop" className="btn btn-primary cut" style={{ minHeight: 44, padding: '0 20px' }}>Shop now</Link>
+          <Link to="/shop" className="btn btn-primary" style={{ minHeight: 44, padding: '0 20px' }}>Shop now</Link>
           <button type="button" className="btn btn-outline" style={{ minHeight: 44, padding: '0 20px' }} onClick={onLogout}>Log out</button>
         </div>
       </div>

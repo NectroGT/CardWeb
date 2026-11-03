@@ -33,7 +33,7 @@ function Header() {
           <NavLink to="/shop">Shop</NavLink>
           <NavLink to="/sell">Sell</NavLink>
           <Link to="/#events">Events</Link>
-          <Link to="/#visit" className="nav-cta cutsm">Get directions</Link>
+          <Link to="/#visit" className="nav-cta">Get directions</Link>
           <button type="button" className="nav-theme" onClick={toggleTheme}>
             {dark ? <SunIcon /> : <MoonIcon />}{dark ? 'Light mode' : 'Dark mode'}
           </button>
