@@ -89,8 +89,8 @@ export const wanted = [
 ];
 
 export const sampleOrders = [
-  { status: 'Ready for pickup', color: '#B5EAD7' },
-  { status: 'Pre-order', color: '#FFE3A3' },
+  { status: 'Ready for pickup', color: 'var(--green)' },
+  { status: 'Pre-order', color: 'var(--amber)' },
   { status: 'Completed', color: '#DFE3E8' }
 ];
 

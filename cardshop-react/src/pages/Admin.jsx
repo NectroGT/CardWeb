@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
+import { useSearchParams } from 'react-router';
 import { useStore, useTitle } from '../store.jsx';
+import AdminEvents from './AdminEvents.jsx';
 
 // Not linked from the site. Open it at /admin.
 const VIEWS = [
@@ -147,8 +149,7 @@ function PackingSlip({ o }) {
   );
 }
 
-export default function Admin() {
-  useTitle('Orders – [SHOP NAME] admin');
+function AdminOrders() {
   const { orders, updateOrder, clearSampleOrders } = useStore();
   const [view, setView] = useState('To pack');
   const [q, setQ] = useState('');
@@ -176,29 +177,22 @@ export default function Admin() {
 
   return (
     <>
-      <section className="container stack no-print" style={{ paddingTop: 40, paddingBottom: 72, gap: 24 }}>
+      <div className="stack no-print" style={{ gap: 24 }}>
         <div className="row" style={{ justifyContent: 'space-between', alignItems: 'flex-end', gap: 16 }}>
-          <div className="stack" style={{ gap: 8 }}>
-            <p className="eyebrow">Staff only</p>
-            <h1 className="h-page" style={{ fontSize: 'clamp(28px, 3vw, 40px)' }}>Orders</h1>
+          <div className="stack" style={{ gap: 10 }}>
+            <div role="group" aria-label="Show orders" className="row" style={{ gap: 8 }}>
+              {VIEWS.map((v) => (
+                <button key={v.name} type="button" className="chip" aria-pressed={view === v.name} onClick={() => setView(v.name)}>
+                  {v.name} · {orders.filter(v.match).length}
+                </button>
+              ))}
+            </div>
+            {hasSamples && <button type="button" className="link-btn" style={{ padding: 0, fontSize: 14 }} onClick={clearSampleOrders}>Clear sample orders</button>}
           </div>
           <div className="field" style={{ flex: '0 1 320px', minWidth: 0 }}>
             <label htmlFor="admin-search" className="label">Search</label>
             <input id="admin-search" className="input" type="search" placeholder="Order #, name, phone or email" value={q} onChange={(e) => setQ(e.target.value)} />
           </div>
-        </div>
-
-        <div className="admin-note row" style={{ gap: '8px 16px', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span>Demo mode: orders are saved in this browser only. Connect a database and staff login before going live.</span>
-          {hasSamples && <button type="button" className="link-btn" style={{ padding: 0, alignSelf: 'auto' }} onClick={clearSampleOrders}>Clear sample orders</button>}
-        </div>
-
-        <div role="group" aria-label="Show orders" className="row" style={{ gap: 8 }}>
-          {VIEWS.map((v) => (
-            <button key={v.name} type="button" className="chip" aria-pressed={view === v.name} onClick={() => setView(v.name)}>
-              {v.name} · {orders.filter(v.match).length}
-            </button>
-          ))}
         </div>
 
         <div className="row" style={{ gap: 24, alignItems: 'flex-start' }}>
@@ -219,8 +213,47 @@ export default function Admin() {
             </aside>
           )}
         </div>
-      </section>
+      </div>
       {selected && <PackingSlip o={selected} />}
     </>
+  );
+}
+
+const TABS = { orders: 'Orders', events: 'Events' };
+
+export default function Admin() {
+  const { orders, events } = useStore();
+  const [params, setParams] = useSearchParams();
+  const tab = params.get('tab') === 'events' ? 'events' : 'orders'; // in the address, so a refresh stays on the same tab
+  useTitle(TABS[tab] + ' – [SHOP NAME] admin');
+  const counts = { orders: orders.filter((o) => o.status === 'to-pack').length, events: events.length };
+
+  return (
+    <section className="container stack" style={{ paddingTop: 40, paddingBottom: 72, gap: 24 }}>
+      <div className="stack no-print" style={{ gap: 8 }}>
+        <p className="eyebrow">Staff only</p>
+        <h1 className="h-page" style={{ fontSize: 'clamp(28px, 3vw, 40px)' }}>Admin</h1>
+      </div>
+      <p className="admin-note no-print">Demo mode: orders and events are saved in this browser only, so customers won’t see new events yet. Connect a database and staff login before going live.</p>
+      <div role="tablist" aria-label="Admin sections" className="admin-tabs no-print">
+        {Object.entries(TABS).map(([key, label]) => (
+          <button
+            key={key}
+            type="button"
+            role="tab"
+            id={'tab-' + key}
+            aria-selected={tab === key}
+            aria-controls="admin-panel"
+            className="admin-tab"
+            onClick={() => setParams(key === 'orders' ? {} : { tab: key }, { replace: true })}
+          >
+            {label} <span className="admin-tab-count">{counts[key]}</span>
+          </button>
+        ))}
+      </div>
+      <div id="admin-panel" role="tabpanel" aria-labelledby={'tab-' + tab}>
+        {tab === 'events' ? <AdminEvents /> : <AdminOrders />}
+      </div>
+    </section>
   );
 }

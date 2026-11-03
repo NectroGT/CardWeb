@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { makeSampleOrders, products } from './data.js';
+import { events as startingEvents, makeSampleOrders, products } from './data.js';
 
 const StoreContext = createContext(null);
 
@@ -23,6 +23,10 @@ function load(key, fallback) {
   }
 }
 
+function defaultEvents() {
+  return startingEvents.map((ev, i) => ({ id: 'e' + (i + 1), repeat: 'weekly', time: '', fee: '', ...ev }));
+}
+
 function save(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
 }
@@ -43,13 +47,23 @@ export function StoreProvider({ children }) {
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#121417' : '#F7F8FA');
   }, [dark]);
   useEffect(() => save('cart', cart), [cart]);
+  // Staff can add and edit events on the admin page. Until then everyone sees the events in data.js.
+  const [events, setEvents] = useState(() => {
+    const saved = load('events', null);
+    return Array.isArray(saved) ? saved : defaultEvents();
+  });
+
   useEffect(() => save('orders', orders), [orders]);
   // Show orders placed in another tab straight away, e.g. the shop open in one tab and admin in another.
   useEffect(() => {
     const onStorage = (e) => {
-      if (e.key !== 'orders') return;
-      const saved = load('orders', []);
-      setOrders(Array.isArray(saved) ? saved : []);
+      if (e.key === 'orders') {
+        const saved = load('orders', []);
+        setOrders(Array.isArray(saved) ? saved : []);
+      } else if (e.key === 'events') {
+        const saved = load('events', null);
+        setEvents(Array.isArray(saved) ? saved : defaultEvents());
+      }
     };
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
@@ -67,6 +81,13 @@ export function StoreProvider({ children }) {
     return id;
   };
 
+  // Events are saved only when staff change them (not on every visit), so edits to data.js still reach visitors.
+  const changeEvents = (fn) => setEvents((es) => {
+    const next = fn(es);
+    save('events', next);
+    return next;
+  });
+
   const value = {
     dark,
     toggleTheme: () => setDark((d) => !d),
@@ -77,7 +98,15 @@ export function StoreProvider({ children }) {
     orders,
     addOrder,
     updateOrder: (id, patch) => setOrders((os) => os.map((o) => (o.id === id ? { ...o, ...patch } : o))),
-    clearSampleOrders: () => setOrders((os) => os.filter((o) => !o.sample))
+    clearSampleOrders: () => setOrders((os) => os.filter((o) => !o.sample)),
+    events,
+    addEvent: (ev) => changeEvents((es) => [...es, { ...ev, id: 'e' + Date.now().toString(36), taken: 0 }]),
+    updateEvent: (id, patch) => changeEvents((es) => es.map((ev) => (ev.id === id ? { ...ev, ...patch } : ev))),
+    deleteEvent: (id) => changeEvents((es) => es.filter((ev) => ev.id !== id)),
+    resetEvents: () => {
+      try { localStorage.removeItem('events'); } catch {}
+      setEvents(defaultEvents());
+    }
   };
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

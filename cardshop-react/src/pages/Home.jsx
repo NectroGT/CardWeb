@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { events, featuredSingles, nextRelease, products, shopContact } from '../data.js';
+import { featuredSingles, nextRelease, products, shopContact } from '../data.js';
+import { dayLabel, isPast, sortEvents, timeLabel } from '../events.js';
 import { useStore, useTitle } from '../store.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { SealedIcon, SinglesIcon, SuppliesIcon, Tick } from '../components/Icons.jsx';
@@ -30,7 +31,7 @@ function Hero() {
           <span style={{ width: 8, height: 8, background: 'var(--accent)' }} aria-hidden="true" />
           System online · Singles · Sealed · Tournaments
         </p>
-        <h1 className="h-hero">Pull it.<br />Trade it.<br /><span style={{ color: 'var(--ink-accent)' }}>Play it here.</span></h1>
+        <h1 className="h-hero">Pull it.<br />Trade it.<br /><span className="text-glow">Play it here.</span></h1>
         <p className="muted" style={{ maxWidth: 540, fontSize: 16 }}>
           Your local hub for Pokémon, Magic: The Gathering, Yu-Gi-Oh!, One Piece and more. Thousands of singles, fresh sealed product, and a full table every game night.
         </p>
@@ -189,6 +190,8 @@ function Categories() {
 }
 
 function Events() {
+  const { events } = useStore();
+  const upcoming = sortEvents(events.filter((ev) => !isPast(ev)));
   return (
     <section id="events" className="band">
       <div className="container stack" style={{ paddingTop: 72, paddingBottom: 72, gap: 28 }}>
@@ -198,17 +201,18 @@ function Events() {
           <p className="muted">New players welcome at every event. Loaner decks available — just ask at the counter.</p>
         </div>
         <div className="stack" style={{ gap: 12 }}>
-          {events.map((ev) => (
-            <div key={ev.day + ev.name} className="panel cut row" style={{ alignItems: 'center', gap: '12px 32px', padding: '16px 22px' }}>
+          {upcoming.length === 0 && <p className="muted">No events scheduled right now. Check back soon.</p>}
+          {upcoming.map((ev) => (
+            <div key={ev.id} className="panel cut row" style={{ alignItems: 'center', gap: '12px 32px', padding: '16px 22px' }}>
               <div className="stack" style={{ flex: '0 0 120px' }}>
-                <span style={{ fontWeight: 700, fontSize: 19, textTransform: 'uppercase', color: 'var(--ink-accent)' }}>{ev.day}</span>
-                <span style={{ fontSize: 13, color: 'var(--muted2)' }}>[TIME]</span>
+                <span style={{ fontWeight: 700, fontSize: 19, textTransform: 'uppercase', color: 'var(--ink-accent)' }}>{dayLabel(ev)}</span>
+                <span style={{ fontSize: 13, color: 'var(--muted2)' }}>{timeLabel(ev)}</span>
               </div>
               <div className="stack" style={{ flex: '1 1 300px', minWidth: 0, gap: 2 }}>
                 <span style={{ fontSize: 17, fontWeight: 600 }}>{ev.name}</span>
                 <span className="muted">{ev.detail}</span>
               </div>
-              <span style={{ fontSize: 13, color: 'var(--text2)', border: '1px solid var(--line)', padding: '8px 12px' }}>ENTRY [FEE]</span>
+              <span style={{ fontSize: 13, color: 'var(--text2)', border: '1px solid var(--line)', padding: '8px 12px' }}>ENTRY {ev.fee || '[FEE]'}</span>
               {ev.seats > 0 && <Seats ev={ev} />}
               {ev.seats > 0 && ev.taken >= ev.seats
                 ? <Link to="/#visit" className="btn btn-outline-rose">Join waitlist</Link>
