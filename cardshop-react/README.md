@@ -32,7 +32,7 @@ All set at the top of `src/data.js`:
 - **`nextRelease`**: the countdown on the home page and the pre-order it links to. After the date it switches to "Out now".
 - **`discountCodes`**: codes customers can enter at checkout. The code used shows on the order in the admin page.
 - **`isNew: true`** on a product puts it in "Just landed" on the home page and gives it a NEW tag.
-- **`seats` / `taken`** on an event show how many places are left. A full event shows "Join waitlist".
+- **`events`**: the starting list of events (or manage them on the admin page's Events tab). `seats` / `taken` show how many places are left; a full event shows "Join waitlist".
 
 **Link previews:** sharing the site on WhatsApp, Facebook, Discord etc. shows `public/og-image.png` with the title and description from `index.html`. Replace the image with your own (1200 × 630 pixels) once you have a shop name and photos.
 
@@ -43,8 +43,9 @@ Staff can see and pack orders at `/admin` (e.g. http://localhost:5173/admin). It
 - **To pack → Ready → Completed**: tick each item as you pack it, then mark the order packed, then collected or shipped.
 - Search by order number, name, phone or email; mark PayNow and pay-in-store orders as paid; print a packing slip.
 - It starts with a few sample orders. "Clear sample orders" removes them.
+- The **Events** tab (`/admin?tab=events`) creates, edits and deletes events for the home page's schedule: weekly or on a one-off date, with start time, entry fee and seats. Use − / + to record bookings. One-off events disappear from the site after their date. "Reset to starting events" goes back to the list in `data.js`.
 
-**Demo only for now:** orders are saved in the browser they were placed in, so the admin page only sees orders placed on the same computer and browser, and anyone who knows the address can open it. Before going live, connect a database (e.g. Supabase) so orders are stored centrally, and put the page behind a staff login.
+**Demo only for now:** orders and events are saved in the browser they were made in. The admin page only sees orders placed on the same computer and browser, events created there are only shown in that browser (customers keep seeing the events in `data.js`), and anyone who knows the address can open it. Before going live, connect a database (e.g. Supabase) so orders are stored centrally, and put the page behind a staff login.
 
 ## Publish on GitHub Pages
 

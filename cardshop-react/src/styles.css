@@ -278,6 +278,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
   .side-panel { position: static; }
   .cart-panel, .detail-panel { max-height: none; overflow: visible; }
+  .events-form { order: -1; }
 
   .mobile-cart-bar {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;

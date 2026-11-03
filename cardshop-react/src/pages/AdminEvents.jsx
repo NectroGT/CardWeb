@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { useStore } from '../store.jsx';
 import { WEEKDAYS, dayLabel, isPast, sortEvents, timeLabel, todayISO } from '../events.js';
@@ -113,8 +113,18 @@ export default function AdminEvents() {
   const [editingId, setEditingId] = useState(null);
   const [saved, setSaved] = useState('');
   const [formKey, setFormKey] = useState(0); // bumped after saving so the form starts empty again
+  const formRef = useRef(null);
   const editing = events.find((ev) => ev.id === editingId);
   const list = sortEvents(events);
+
+  const startEdit = (id) => {
+    setEditingId(id);
+    setSaved('');
+    // On phones the form is at the top of the page, so bring it into view.
+    if (window.matchMedia('(max-width: 860px)').matches) {
+      requestAnimationFrame(() => formRef.current?.scrollIntoView({ behavior: 'smooth' }));
+    }
+  };
 
   const save = (data) => {
     if (editing) {
@@ -140,13 +150,13 @@ export default function AdminEvents() {
         </div>
         {list.length > 0 ? (
           <ul className="stack" style={{ margin: 0, padding: 0, listStyle: 'none', gap: 10 }}>
-            {list.map((ev) => <EventRow key={ev.id} ev={ev} onEdit={() => { setEditingId(ev.id); setSaved(''); }} />)}
+            {list.map((ev) => <EventRow key={ev.id} ev={ev} onEdit={() => startEdit(ev.id)} />)}
           </ul>
         ) : (
           <p className="muted" style={{ padding: 24, border: '1px dashed var(--line2)', borderRadius: 'var(--radius-btn)' }}>No events yet. Create one to show it on the home page.</p>
         )}
       </div>
-      <aside aria-label={editing ? 'Edit event' : 'Create event'} className="panel cut side-panel detail-panel stack" style={{ flex: '1 1 380px', minWidth: 0, padding: 22, gap: 16 }}>
+      <aside ref={formRef} aria-label={editing ? 'Edit event' : 'Create event'} className="panel cut side-panel detail-panel events-form stack" style={{ flex: '1 1 380px', minWidth: 0, padding: 22, gap: 16 }}>
         {saved && <p className="admin-saved" role="status">{saved}</p>}
         <EventForm key={editingId || 'new-' + formKey} initial={editing} onSave={save} onCancel={editing ? () => setEditingId(null) : null} />
       </aside>
