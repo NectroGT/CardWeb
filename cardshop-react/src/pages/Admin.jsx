@@ -75,6 +75,7 @@ function OrderDetail({ o, onUpdate }) {
         <dd>{isDelivery(o) ? o.address : 'Customer collects in store'}</dd>
         <dt>Payment</dt>
         <dd>{o.payment} · {o.paid ? 'Paid' : 'Not paid yet'}</dd>
+        {o.discount && <><dt>Discount</dt><dd>Code {o.discount}</dd></>}
       </dl>
 
       <div className="stack" style={{ gap: 4 }}>
@@ -141,7 +142,7 @@ function PackingSlip({ o }) {
           ))}
         </tbody>
       </table>
-      <p>Payment: {o.payment} · {o.paid ? 'Paid' : 'NOT PAID'}</p>
+      <p>Payment: {o.payment} · {o.paid ? 'Paid' : 'NOT PAID'}{o.discount && ' · Discount code ' + o.discount}</p>
     </div>
   );
 }

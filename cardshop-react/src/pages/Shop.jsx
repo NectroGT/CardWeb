@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
-import { products } from '../data.js';
+import { discountCodes, products } from '../data.js';
 import { useStore, useTitle } from '../store.jsx';
 import { CheckCircle, LockIcon } from '../components/Icons.jsx';
-import { ChipGroup, Field, ImagePlaceholder } from '../components/ui.jsx';
+import { ChipGroup, Field } from '../components/ui.jsx';
+import ProductCard from '../components/ProductCard.jsx';
 
 const GAMES = ['All', 'Pokémon', 'Magic', 'Yu-Gi-Oh!', 'One Piece', 'Lorcana'];
 const TYPES = ['All', 'Singles', 'Sealed', 'Supplies', 'Pre-orders'];
@@ -14,34 +15,6 @@ function useCartItems() {
   const { cart } = useStore();
   const items = products.filter((p) => cart[p.id]).map((p) => ({ ...p, qty: cart[p.id] }));
   return { items, count: items.reduce((a, c) => a + c.qty, 0) };
-}
-
-function ProductCard({ p }) {
-  const { cart, setQty } = useStore();
-  const n = cart[p.id] || 0;
-  const label = n ? `In cart (${n}) · Add 1` : (p.type === 'Pre-orders' ? 'Pre-order' : 'Add to cart');
-  return (
-    <article className="panel cut stack" style={{ padding: 12, gap: 12 }}>
-      <ImagePlaceholder ratio={p.ratio} iconSize={28} />
-      <div className="stack" style={{ gap: 3 }}>
-        <span className="small-caps" style={{ fontSize: 11, letterSpacing: '0.1em' }}>{p.game} · {p.type}</span>
-        <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{p.name}</h3>
-        <span className="muted" style={{ fontSize: 13 }}>{p.detail}</span>
-      </div>
-      <div className="row" style={{ alignItems: 'center', justifyContent: 'space-between', gap: 8, marginTop: 'auto', paddingTop: 10, borderTop: '1px solid var(--line)' }}>
-        <span style={{ fontWeight: 600, fontSize: 16, color: 'var(--ink-accent)' }}>[PRICE]</span>
-        <span className="muted" style={{ fontSize: 12 }}>{p.stock}</span>
-      </div>
-      <button
-        type="button"
-        className="btn btn-primary"
-        style={{ fontSize: 13, letterSpacing: '0.06em', minHeight: 44, padding: 0, ...(n ? { background: 'transparent', color: 'var(--ink-accent)', border: '1px solid var(--ink-accent)' } : {}) }}
-        onClick={() => setQty(p.id, n + 1)}
-      >
-        {label}
-      </button>
-    </article>
-  );
 }
 
 function Cart({ onCheckout }) {
@@ -91,6 +64,52 @@ function Totals({ rows }) {
       {rows.map(([k, v]) => (
         <div key={k} className="muted" style={{ display: 'flex', justifyContent: 'space-between' }}><span>{k}</span><span>{v}</span></div>
       ))}
+    </div>
+  );
+}
+
+function DiscountCode({ applied, onApply }) {
+  const [code, setCode] = useState('');
+  const [error, setError] = useState('');
+  const apply = () => {
+    const c = code.trim().toUpperCase();
+    if (discountCodes[c]) {
+      onApply(c);
+      setCode('');
+      setError('');
+    } else {
+      setError(c ? 'That code isn’t valid.' : 'Enter a code first.');
+    }
+  };
+
+  if (applied) {
+    return (
+      <div className="discount-applied">
+        <span><strong>{applied}</strong> · {discountCodes[applied]}</span>
+        <button type="button" className="link-btn" style={{ padding: 0, alignSelf: 'auto', fontSize: 13 }} onClick={() => onApply('')}>Remove</button>
+      </div>
+    );
+  }
+  return (
+    <div className="field">
+      <label htmlFor="co-code" className="label">Discount code</label>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <input
+          id="co-code"
+          className="input"
+          type="text"
+          autoComplete="off"
+          autoCapitalize="characters"
+          value={code}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? 'co-code-error' : undefined}
+          onChange={(e) => setCode(e.target.value)}
+          // Enter applies the code instead of placing the order.
+          onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); apply(); } }}
+        />
+        <button type="button" className="btn btn-outline" style={{ padding: '0 16px' }} onClick={apply}>Apply</button>
+      </div>
+      {error && <span id="co-code-error" className="field-error" role="alert">{error}</span>}
     </div>
   );
 }
@@ -177,6 +196,7 @@ function Checkout({ onBack, onPlaced }) {
   const { items, count } = useCartItems();
   const [fulfil, setFulfil] = useState('Store pickup');
   const [payPick, setPay] = useState('PayNow');
+  const [discount, setDiscount] = useState('');
   const delivery = fulfil === 'Delivery';
   const payOptions = delivery ? ['PayNow', 'Credit / debit card'] : ['PayNow', 'Credit / debit card', 'Pay in store'];
   const pay = payOptions.includes(payPick) ? payPick : 'PayNow';
@@ -193,6 +213,7 @@ function Checkout({ onBack, onPlaced }) {
       address: delivery ? [v('co-addr'), v('co-unit'), v('co-postal')].filter(Boolean).join(', ') : '',
       payment: pay,
       paid: pay === 'Credit / debit card',
+      discount,
       items: items.map(({ id, name, game, type, detail, qty }) => ({ id, name, game, type, detail, qty }))
     });
   };
@@ -264,8 +285,9 @@ function Checkout({ onBack, onPlaced }) {
               <li key={c.id} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 14 }}><span>{c.qty} × {c.name}</span><span>[PRICE]</span></li>
             ))}
           </ul>
+          <DiscountCode applied={discount} onApply={setDiscount} />
           <div className="stack" style={{ gap: 6, paddingTop: 12, borderTop: '1px solid var(--line)' }}>
-            <Totals rows={[['Subtotal', '[SUBTOTAL]'], [fulfil, delivery ? '[DELIVERY FEE]' : 'Free']]} />
+            <Totals rows={[['Subtotal', '[SUBTOTAL]'], ...(discount ? [['Discount · ' + discount, '−[DISCOUNT]']] : []), [fulfil, delivery ? '[DELIVERY FEE]' : 'Free']]} />
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 17, fontWeight: 700, paddingTop: 6 }}><span>Total</span><span style={{ color: 'var(--ink-accent)' }}>[TOTAL]</span></div>
           </div>
           <label className="check"><input type="checkbox" required />I agree to the terms and refund policy.</label>

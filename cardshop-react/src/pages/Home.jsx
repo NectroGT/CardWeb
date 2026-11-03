@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router';
-import { events, featuredSingles, shopContact } from '../data.js';
-import { useTitle } from '../store.jsx';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { events, featuredSingles, nextRelease, products, shopContact } from '../data.js';
+import { useStore, useTitle } from '../store.jsx';
+import ProductCard from '../components/ProductCard.jsx';
 import { SealedIcon, SinglesIcon, SuppliesIcon, Tick } from '../components/Icons.jsx';
 import { ChipGroup, ImagePlaceholder, SocialLinks, Success } from '../components/ui.jsx';
 
@@ -46,6 +47,98 @@ function Hero() {
   );
 }
 
+function useNow() {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  return now;
+}
+
+function ReleaseCountdown() {
+  const { cart, setQty } = useStore();
+  const navigate = useNavigate();
+  const now = useNow();
+  if (!nextRelease) return null;
+
+  const release = new Date(nextRelease.date);
+  const left = Math.max(0, release.getTime() - now);
+  const out = left === 0;
+  const units = [
+    ['Days', Math.floor(left / 86400000)],
+    ['Hours', Math.floor(left / 3600000) % 24],
+    ['Mins', Math.floor(left / 60000) % 60],
+    ['Secs', Math.floor(left / 1000) % 60]
+  ];
+  const onSale = release.toLocaleString([], { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' });
+  const product = products.find((p) => p.id === nextRelease.productId);
+  const preOrder = () => {
+    setQty(product.id, (cart[product.id] || 0) + 1);
+    navigate('/shop#cart');
+  };
+
+  return (
+    <section aria-labelledby="release-title" className="container" style={{ paddingBottom: 56 }}>
+      <div className="release panel cut">
+        <div className="stack" style={{ flex: '1 1 300px', minWidth: 0, gap: 10 }}>
+          <p className="eyebrow rose">{out ? 'Out now' : 'Next release'} · {nextRelease.game}</p>
+          <h2 id="release-title" className="h-section">{nextRelease.name}</h2>
+          <p className="muted">{out ? 'In store and online now, while stock lasts.' : `On sale ${onSale}. Pre-order now to guarantee your copy.`}</p>
+        </div>
+        {!out && (
+          <div className="countdown" role="timer" aria-label={`${units[0][1]} days, ${units[1][1]} hours and ${units[2][1]} minutes to go`}>
+            {units.map(([label, n]) => (
+              <div key={label} className="countdown-unit" aria-hidden="true">
+                <span className="countdown-num">{String(n).padStart(2, '0')}</span>
+                <span className="countdown-label">{label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {out || !product ? (
+          <Link to="/shop" className="btn btn-primary">Shop now</Link>
+        ) : (
+          <button type="button" className="btn btn-primary" onClick={preOrder}>Pre-order now</button>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function JustLanded() {
+  const fresh = products.filter((p) => p.isNew);
+  if (fresh.length === 0) return null;
+  return (
+    <section id="new" className="container stack" style={{ paddingTop: 72, paddingBottom: 16, gap: 28 }}>
+      <div className="row" style={{ alignItems: 'end', justifyContent: 'space-between', gap: 24 }}>
+        <div className="stack" style={{ gap: 12, maxWidth: 620 }}>
+          <p className="eyebrow">01 // Just landed</p>
+          <h2 className="h-section">New this week</h2>
+          <p className="muted">Fresh stock and new arrivals. Add to your cart, then collect in store or get it delivered.</p>
+        </div>
+        <Link to="/shop" className="btn btn-outline">Shop everything</Link>
+      </div>
+      <div className="product-grid">
+        {fresh.map((p) => <ProductCard key={p.id} p={p} />)}
+      </div>
+    </section>
+  );
+}
+
+function Seats({ ev }) {
+  const left = Math.max(0, ev.seats - ev.taken);
+  const low = left > 0 && left <= Math.ceil(ev.seats / 4);
+  return (
+    <div className="seats">
+      <span className={low || left === 0 ? 'seats-low' : undefined}>
+        {left === 0 ? 'Fully booked' : low ? `Only ${left} seats left` : `${left} of ${ev.seats} seats left`}
+      </span>
+      <span className="seat-bar" aria-hidden="true"><span style={{ width: `${Math.min(100, (ev.taken / ev.seats) * 100)}%` }} /></span>
+    </div>
+  );
+}
+
 function FeaturedSingles() {
   const [game, setGame] = useState('All');
   const cards = featuredSingles.filter((c) => game === 'All' || c.game === game);
@@ -53,7 +146,7 @@ function FeaturedSingles() {
     <section id="shop" className="container stack" style={{ paddingTop: 72, paddingBottom: 40, gap: 28 }}>
       <div className="row" style={{ alignItems: 'end', justifyContent: 'space-between', gap: 24 }}>
         <div className="stack" style={{ gap: 12, maxWidth: 620 }}>
-          <p className="eyebrow">01 // In the case this week</p>
+          <p className="eyebrow">02 // In the case this week</p>
           <h2 className="h-section">Featured singles</h2>
           <p className="muted">A rotating pick from our showcase. Every card is graded for condition in store — ask to see anything up close.</p>
         </div>
@@ -100,7 +193,7 @@ function Events() {
     <section id="events" className="band">
       <div className="container stack" style={{ paddingTop: 72, paddingBottom: 72, gap: 28 }}>
         <div className="stack" style={{ gap: 12, maxWidth: 640 }}>
-          <p className="eyebrow rose">02 // Game nights &amp; tournaments</p>
+          <p className="eyebrow rose">03 // Game nights &amp; tournaments</p>
           <h2 className="h-section">Weekly schedule</h2>
           <p className="muted">New players welcome at every event. Loaner decks available — just ask at the counter.</p>
         </div>
@@ -116,7 +209,10 @@ function Events() {
                 <span className="muted">{ev.detail}</span>
               </div>
               <span style={{ fontSize: 13, color: 'var(--text2)', border: '1px solid var(--line)', padding: '8px 12px' }}>ENTRY [FEE]</span>
-              <Link to="/#visit" className="btn btn-rose">Reserve a seat</Link>
+              {ev.seats > 0 && <Seats ev={ev} />}
+              {ev.seats > 0 && ev.taken >= ev.seats
+                ? <Link to="/#visit" className="btn btn-outline-rose">Join waitlist</Link>
+                : <Link to="/#visit" className="btn btn-rose">Reserve a seat</Link>}
             </div>
           ))}
         </div>
@@ -131,7 +227,7 @@ function Visit() {
       <div className="container row" style={{ paddingTop: 72, paddingBottom: 72, gap: 48 }}>
         <div className="stack" style={{ flex: '1 1 380px', minWidth: 0, gap: 20 }}>
           <div className="stack" style={{ gap: 12 }}>
-            <p className="eyebrow">03 // Visit the shop</p>
+            <p className="eyebrow">04 // Visit the shop</p>
             <h2 className="h-section">Come say hi</h2>
           </div>
           <div className="stack" style={{ gap: 6 }}>
@@ -177,7 +273,7 @@ function JoinList() {
     <section id="join" className="band" style={{ borderBottom: 'none' }}>
       <div className="container row" style={{ paddingTop: 72, paddingBottom: 72, gap: 40, alignItems: 'flex-start' }}>
         <div className="stack" style={{ flex: '1 1 360px', minWidth: 0, gap: 14 }}>
-          <p className="eyebrow">04 // Stay in the loop</p>
+          <p className="eyebrow">05 // Stay in the loop</p>
           <h2 className="h-section">Join the list</h2>
           <p className="muted" style={{ maxWidth: 440 }}>Be first to hear about restocks, pre-orders and tournament sign-ups. One message a week, tops — unsubscribe any time.</p>
           <ul className="ticks" style={{ paddingTop: 6 }}>
@@ -224,12 +320,14 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <ReleaseCountdown />
       <section aria-label="Games we carry" className="band">
         <div className="container row" style={{ padding: 24, justifyContent: 'space-between', alignItems: 'center', gap: '16px 32px', fontWeight: 600, fontSize: 16, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text2)' }}>
           <span style={{ fontWeight: 400, fontSize: 12, letterSpacing: '0.16em', color: 'var(--ink-rose)' }}>// We carry</span>
           {GAMES_WE_CARRY.map((g) => <span key={g}>{g}</span>)}
         </div>
       </section>
+      <JustLanded />
       <FeaturedSingles />
       <Categories />
       <Events />

@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { useStore } from '../store.jsx';
 import { CartIcon, CloseIcon, Logo, MenuIcon, MoonIcon, SunIcon, UserIcon } from './Icons.jsx';
 import { SocialLinks } from './ui.jsx';
+import { promo } from '../data.js';
 
 // Scroll to #section links (e.g. /#events) after navigating, otherwise to the top.
 function ScrollToHash() {
@@ -13,6 +14,29 @@ function ScrollToHash() {
     else window.scrollTo(0, 0);
   }, [pathname, hash]);
   return null;
+}
+
+// Remembers which promo was closed, so a new promo text shows again.
+function PromoBar() {
+  const [closed, setClosed] = useState(() => {
+    try { return localStorage.getItem('promo-closed') === promo?.text; } catch { return false; }
+  });
+  if (!promo || closed) return null;
+  const close = () => {
+    setClosed(true);
+    try { localStorage.setItem('promo-closed', promo.text); } catch {}
+  };
+  return (
+    <div className="promo-bar" role="region" aria-label="Offer">
+      <div className="container">
+        <p>
+          {promo.text}
+          {promo.link && <> <Link to={promo.link}>{promo.linkLabel}</Link></>}
+        </p>
+        <button type="button" className="promo-close" aria-label="Close offer" onClick={close}><CloseIcon /></button>
+      </div>
+    </div>
+  );
 }
 
 function Header() {
@@ -89,6 +113,7 @@ export default function Layout() {
   return (
     <div className={'app ' + (dark ? 'theme-dark' : 'theme-light')}>
       <ScrollToHash />
+      <PromoBar />
       <Header />
       <main><Outlet /></main>
       <Footer />

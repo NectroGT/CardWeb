@@ -152,6 +152,31 @@ textarea.input { padding: 12px 14px; resize: vertical; }
 .offer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
 .mobile-cart-bar, .mobile-cart-spacer { display: none; }
 
+/* Promo banner */
+.promo-bar { background: var(--rose); color: var(--on-accent); font-size: 14px; }
+.promo-bar .container { display: flex; align-items: center; justify-content: center; gap: 12px; padding-top: max(8px, env(safe-area-inset-top)); padding-bottom: 8px; }
+.promo-bar p { margin: 0; text-align: center; }
+.promo-bar a { color: var(--on-accent); font-weight: 700; }
+.promo-close { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; border: none; border-radius: var(--radius-btn); background: none; color: var(--on-accent); cursor: pointer; }
+@media (hover: hover) { .promo-close:hover { background: rgba(0, 0, 0, 0.08); } }
+
+/* Release countdown */
+.release { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 40px; padding: 28px; border-color: var(--rose); }
+.countdown { display: grid; grid-template-columns: repeat(4, minmax(64px, 1fr)); gap: 10px; }
+.countdown-unit { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 8px; background: var(--surface2); border: 1px solid var(--line); border-radius: var(--radius-btn); }
+.countdown-num { font-size: 32px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink-rose); }
+.countdown-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); }
+
+/* Event seats */
+.seats { display: flex; flex-direction: column; gap: 6px; flex: 0 0 160px; font-size: 13px; color: var(--text2); }
+.seats-low { color: var(--ink-rose); font-weight: 600; }
+.seat-bar { height: 6px; border-radius: 3px; background: var(--surface2); overflow: hidden; }
+.seat-bar span { display: block; height: 100%; background: var(--rose); }
+
+/* Discount code */
+.field-error { font-size: 13px; color: var(--ink-rose); }
+.discount-applied { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 14px; padding: 10px 12px; border: 1px dashed var(--rose); border-radius: var(--radius-btn); }
+
 /* Admin: orders */
 .admin-note { font-size: 13px; color: var(--text2); background: var(--surface2); border: 1px solid var(--line); border-radius: var(--radius-btn); padding: 10px 14px; }
 .admin-warn { margin: 0; font-size: 13px; font-weight: 600; color: var(--ink-rose); }
@@ -254,6 +279,11 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .product-grid h3 { font-size: 14px !important; }
   .product-grid .btn { font-size: 12px !important; letter-spacing: 0.03em !important; }
   .img-placeholder span { font-size: 10px; }
+  .release { padding: 20px; }
+  .countdown { width: 100%; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .countdown-num { font-size: 26px; }
+  .countdown-label { font-size: 10px; letter-spacing: 0.08em; }
+  .promo-bar { font-size: 13px; }
 }
 
 /* Printing a packing slip from the admin page: only the slip, black on white. */

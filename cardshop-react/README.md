@@ -24,6 +24,18 @@ Then open http://localhost:5173. Edits to files in `src/` show up in the browser
 - `src/store.jsx` – the cart and light/dark theme, saved in the browser so they survive page changes and reloads
 - `src/styles.css` – colours, theme and shared styles
 
+## Promotions
+
+All set at the top of `src/data.js`:
+
+- **`promo`**: the pink banner across the top of every page. Set it to `null` to hide it. Visitors can close it; changing the text shows it to them again.
+- **`nextRelease`**: the countdown on the home page and the pre-order it links to. After the date it switches to "Out now".
+- **`discountCodes`**: codes customers can enter at checkout. The code used shows on the order in the admin page.
+- **`isNew: true`** on a product puts it in "Just landed" on the home page and gives it a NEW tag.
+- **`seats` / `taken`** on an event show how many places are left. A full event shows "Join waitlist".
+
+**Link previews:** sharing the site on WhatsApp, Facebook, Discord etc. shows `public/og-image.png` with the title and description from `index.html`. Replace the image with your own (1200 × 630 pixels) once you have a shop name and photos.
+
 ## Orders admin page
 
 Staff can see and pack orders at `/admin` (e.g. http://localhost:5173/admin). It isn't linked from the site.
