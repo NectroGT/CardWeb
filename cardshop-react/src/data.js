@@ -40,6 +40,26 @@ export const socials = [
   { name: 'Telegram', url: 'https://t.me/[USERNAME]' }
 ];
 
+// The chat helper in the corner of every page. Each topic is a button in the chat, and also answers
+// typed questions containing any of its keywords. link: optional button under the answer
+// (a page like '/sell' or a full web address). Topics with id 'events', 'discount' or 'release'
+// fill in their answer from the lists in this file, so leave their answer out.
+export const chatTopics = [
+  { id: 'hours', label: 'Opening hours', keywords: ['hour', 'open', 'close', 'closing', 'today', 'weekend', 'sunday', 'holiday'], answer: 'We’re open Mon – Thu [HOURS], Friday [HOURS], Saturday [HOURS] and Sunday [HOURS].', link: { label: 'See opening hours', to: '/#visit' } },
+  { id: 'location', label: 'Where are you?', keywords: ['where', 'address', 'location', 'direction', 'find you', 'parking', 'mrt', 'bus', 'map'], answer: 'We’re at [STREET ADDRESS], [CITY, POSTAL CODE].', link: { label: 'Get directions', to: shopContact.mapsUrl } },
+  { id: 'events', label: 'Events this week', keywords: ['event', 'tournament', 'league', 'play', 'draft', 'commander', 'locals', 'prerelease', 'book a seat', 'sign up', 'seat'] },
+  { id: 'delivery', label: 'Delivery and pickup', keywords: ['deliver', 'shipping', 'ship', 'post', 'courier', 'pickup', 'pick up', 'collect', 'arrive'], answer: 'Delivery costs [DELIVERY FEE] and arrives in [DELIVERY TIME]. Or choose store pickup at checkout and we’ll message you when your order is ready to collect.', link: { label: 'Go to the shop', to: '/shop' } },
+  { id: 'payment', label: 'Payment', keywords: ['pay', 'paynow', 'card payment', 'credit', 'debit', 'cash', 'visa', 'mastercard'], answer: 'Online you can pay with PayNow or a credit / debit card. For store pickup you can also pay in store.' },
+  { id: 'sell', label: 'Sell my cards', keywords: ['sell my', 'sell cards', 'sell some', 'sell to you', 'want to sell', 'can i sell', 'buy my', 'trade', 'offer', 'value', 'worth', 'collection', 'bulk', 'graded', 'slab'], answer: 'We buy singles, graded slabs, sealed product and sorted bulk. Bring them in during buy hours [BUY HOURS] and we’ll price them in front of you, then pay cash, PayNow or store credit. For a big collection, send us a quote request first.', link: { label: 'Sell your cards', to: '/sell' } },
+  { id: 'discount', label: 'Discount codes', keywords: ['discount', 'code', 'promo', 'coupon', 'voucher', 'sale', 'deal', 'offer code'] },
+  { id: 'release', label: 'Pre-orders', keywords: ['pre-order', 'preorder', 'pre order', 'release', 'new set', 'upcoming', 'restock', 'coming soon'] },
+  { id: 'order', label: 'My order', keywords: ['my order', 'order status', 'order number', 'track', 'where is my', 'refund', 'cancel', 'return'], answer: 'Your order number is shown after checkout. We’ll message you when it’s packed and ready. For changes, cancellations or anything else, message us with your order number.', link: { label: 'Message us on WhatsApp', to: socials.find((s) => s.name === 'WhatsApp')?.url } },
+  { id: 'condition', label: 'Card condition', keywords: ['condition', 'near mint', 'nm', 'played', 'lp', 'damage', 'grade', 'grading', 'psa'], answer: 'Every single is checked in store and listed as Near Mint, Lightly Played and so on. Ask to see any card up close before you buy.' }
+];
+
+// What the chat helper says when it can't match a question.
+export const chatFallback = 'Sorry, I don’t know that one yet. Try a topic below, or message the shop and a person will reply.';
+
 export const featuredSingles = [
   { game: 'Pokémon', name: '[Card name]', detail: '[Set] · Holo rare', condition: 'Near Mint' },
   { game: 'Magic', name: '[Card name]', detail: '[Set] · Mythic', condition: 'Near Mint' },

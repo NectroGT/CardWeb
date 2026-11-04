@@ -152,3 +152,11 @@ export function SealedIcon() {
 export function SuppliesIcon() {
   return <svg width="26" height="26" viewBox="0 0 24 24" {...cat}><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" /></svg>;
 }
+
+export function ChatIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.8" {...line}>
+      <path d="M4 5h16v11H9l-5 4z" /><path d="M8 9.5h8M8 12.5h5" />
+    </svg>
+  );
+}

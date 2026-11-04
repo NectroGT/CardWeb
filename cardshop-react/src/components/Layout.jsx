@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { useStore } from '../store.jsx';
 import { CartIcon, CloseIcon, Logo, MenuIcon, MoonIcon, SunIcon, UserIcon } from './Icons.jsx';
 import { SocialLinks } from './ui.jsx';
+import ChatBot from './ChatBot.jsx';
 import { promo } from '../data.js';
 
 // Scroll to #section links (e.g. /#events) after navigating, otherwise to the top.
@@ -110,6 +111,7 @@ function Footer() {
 
 export default function Layout() {
   const { dark } = useStore();
+  const { pathname } = useLocation();
   return (
     <div className={'app ' + (dark ? 'theme-dark' : 'theme-light')}>
       <ScrollToHash />
@@ -117,6 +119,7 @@ export default function Layout() {
       <Header />
       <main><Outlet /></main>
       <Footer />
+      {!pathname.startsWith('/admin') && <ChatBot />}
     </div>
   );
 }

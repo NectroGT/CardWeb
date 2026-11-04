@@ -34,6 +34,15 @@ All set at the top of `src/data.js`:
 - **`isNew: true`** on a product puts it in "Just landed" on the home page and gives it a NEW tag.
 - **`events`**: the starting list of events (or manage them on the admin page's Events tab). `seats` / `taken` show how many places are left; a full event shows "Join waitlist".
 
+## Chat helper
+
+The "Ask us" button in the bottom corner of every page (except admin) opens a chat that answers common questions instantly. It runs entirely in the browser: nothing is sent anywhere and it costs nothing.
+
+- Edit the questions and answers in **`chatTopics`** in `src/data.js`. Each topic is a button in the chat; typed questions are matched by its `keywords`. Add a `link` to show a button under the answer.
+- The events, discount codes and pre-order answers fill themselves in from the event schedule, `discountCodes` and `nextRelease`, so they stay up to date.
+- Anything it can't answer gets `chatFallback` plus a link to your WhatsApp from `socials`.
+- Replace the `[PLACEHOLDERS]` in the answers (hours, address, delivery fee) along with the rest of the site.
+
 **Link previews:** sharing the site on WhatsApp, Facebook, Discord etc. shows `public/og-image.png` with the title and description from `index.html`. Replace the image with your own (1200 × 630 pixels) once you have a shop name and photos.
 
 ## Orders admin page
