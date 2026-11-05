@@ -28,6 +28,24 @@ export const shopContact = {
   phone: '[PHONE]'
 };
 
+// Shop details for the home page's Visit section and for Google (search results, Maps).
+// hours: each row is one line on the home page. days: the days it covers, for Google.
+// opens / closes: 24-hour time, e.g. '11:00' and '21:30'.
+export const shopDetails = {
+  name: '[SHOP NAME]',
+  street: '[STREET ADDRESS]',
+  city: '[CITY]',
+  postalCode: '[POSTAL CODE]',
+  country: 'SG',
+  email: '[EMAIL]',
+  hours: [
+    { label: 'Mon – Thu', days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '[OPEN]', closes: '[CLOSE]' },
+    { label: 'Friday', days: ['Friday'], opens: '[OPEN]', closes: '[CLOSE]' },
+    { label: 'Saturday', days: ['Saturday'], opens: '[OPEN]', closes: '[CLOSE]' },
+    { label: 'Sunday', days: ['Sunday'], opens: '[OPEN]', closes: '[CLOSE]' }
+  ]
+};
+
 // Social media links, shown in the footer and the Visit section.
 // Replace the [PLACEHOLDERS] with your real handles, and delete any line you don't use.
 export const socials = [

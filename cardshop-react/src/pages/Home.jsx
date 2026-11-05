@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { featuredSingles, nextRelease, products, shopContact } from '../data.js';
+import { featuredSingles, nextRelease, products, shopContact, shopDetails } from '../data.js';
 import { dayLabel, isPast, sortEvents, timeLabel } from '../events.js';
-import { useStore, useTitle } from '../store.jsx';
+import { useStore, usePageMeta } from '../store.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { SealedIcon, SinglesIcon, SuppliesIcon, Tick } from '../components/Icons.jsx';
 import { ChipGroup, ImagePlaceholder, SocialLinks, Success } from '../components/ui.jsx';
@@ -15,7 +15,8 @@ const CATEGORIES = [
   { icon: <SuppliesIcon />, title: 'Supplies', text: 'Sleeves, binders, deck boxes, playmats and top-loaders to keep your collection mint.' }
 ];
 
-const HOURS = ['Mon – Thu', 'Friday', 'Saturday', 'Sunday'];
+// '21:30' → '9:30 pm' in the visitor's format; anything else (e.g. a [PLACEHOLDER]) is shown as written.
+const clock = (t) => (/^\d{1,2}:\d{2}$/.test(t) ? new Date('2000-01-01T' + t.padStart(5, '0')).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : t);
 
 const CONTACT = {
   WhatsApp: { label: 'WhatsApp number', hint: '+65 ', type: 'tel', autoComplete: 'tel' },
@@ -236,11 +237,11 @@ function Visit() {
           </div>
           <div className="stack" style={{ gap: 6 }}>
             <span className="small-caps">Address</span>
-            <span style={{ color: 'var(--text2)' }}>[STREET ADDRESS]<br />[CITY, POSTAL CODE]</span>
+            <span style={{ color: 'var(--text2)' }}>{shopDetails.street}<br />{shopDetails.city} {shopDetails.postalCode}</span>
           </div>
           <div className="stack" style={{ gap: 6 }}>
             <span className="small-caps">Contact</span>
-            <span style={{ color: 'var(--text2)' }}>[PHONE] · [EMAIL]</span>
+            <span style={{ color: 'var(--text2)' }}>{shopContact.phone} · {shopDetails.email}</span>
           </div>
           <div className="stack" style={{ gap: 10 }}>
             <span className="small-caps">Follow us</span>
@@ -255,9 +256,9 @@ function Visit() {
           <div className="panel cut" style={{ padding: '22px 26px' }}>
             <h3 style={{ margin: '0 0 14px', fontSize: 16, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Opening hours</h3>
             <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', rowGap: 10, fontSize: 16 }}>
-              {HOURS.map((day) => [
-                <dt key={day} className="muted">{day}</dt>,
-                <dd key={day + '-h'} style={{ margin: 0, textAlign: 'right' }}>[HOURS]</dd>
+              {shopDetails.hours.map((h) => [
+                <dt key={h.label} className="muted">{h.label}</dt>,
+                <dd key={h.label + '-h'} style={{ margin: 0, textAlign: 'right' }}>{clock(h.opens)} – {clock(h.closes)}</dd>
               ])}
             </dl>
           </div>
@@ -320,7 +321,7 @@ function JoinList() {
 }
 
 export default function Home() {
-  useTitle('[SHOP NAME] – Trading card shop');
+  usePageMeta('/');
   return (
     <>
       <Hero />

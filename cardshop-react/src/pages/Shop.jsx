@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import { discountCodes, products } from '../data.js';
-import { useStore, useTitle } from '../store.jsx';
+import { useStore, usePageMeta } from '../store.jsx';
 import { CheckCircle, LockIcon } from '../components/Icons.jsx';
 import { ChipGroup, Field } from '../components/ui.jsx';
 import ProductCard from '../components/ProductCard.jsx';
@@ -316,7 +316,7 @@ function Done({ orderId, delivery, onKeepShopping }) {
 }
 
 export default function Shop() {
-  useTitle('Shop online – [SHOP NAME]');
+  usePageMeta('/shop');
   const { clearCart, addOrder } = useStore();
   const { count } = useCartItems();
   const [step, setStep] = useState('browse');

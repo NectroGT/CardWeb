@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { wanted } from '../data.js';
-import { useTitle } from '../store.jsx';
+import { usePageMeta } from '../store.jsx';
 import { Cross, Tick } from '../components/Icons.jsx';
 import { ChipGroup, Field, Success } from '../components/ui.jsx';
 
@@ -105,7 +105,7 @@ function QuoteForm() {
 }
 
 export default function Sell() {
-  useTitle('Sell your cards – [SHOP NAME]');
+  usePageMeta('/sell');
   return (
     <>
       <section className="container row" style={{ paddingTop: 56, paddingBottom: 48, gap: 40, alignItems: 'center' }}>

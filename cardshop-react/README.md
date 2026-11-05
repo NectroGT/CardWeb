@@ -56,6 +56,20 @@ Staff can see and pack orders at `/admin` (e.g. http://localhost:5173/admin). It
 
 **Demo only for now:** orders and events are saved in the browser they were made in. The admin page only sees orders placed on the same computer and browser, events created there are only shown in that browser (customers keep seeing the events in `data.js`), and anyone who knows the address can open it. Before going live, connect a database (e.g. Supabase) so orders are stored centrally, and put the page behind a staff login.
 
+## Showing up on Google
+
+- **Shop details:** fill in `shopDetails` in `src/data.js` (name, address, email and opening hours) plus `shopContact` and `socials`. They appear in the home page's Visit section and are given to Google in its business-listing format, so search results can show your hours, address and phone. Anything still a `[PLACEHOLDER]` is left out, and the build prints a reminder of what's missing.
+- **Page titles and descriptions** for search results and link previews are in `src/seo.js`.
+- **Every page has its own address.** The build writes a copy of the site for `/shop/`, `/sell/`, `/account/` and `/admin/`, so those links work when opened directly or refreshed, and Google can list them. It also writes `sitemap.xml`, `robots.txt` and a `404.html`. The account and admin pages are marked so search engines skip them.
+
+After the site is live:
+
+1. **Google Business Profile** ([business.google.com](https://business.google.com)): create or claim the shop, add the same address, hours, phone and photos, and put the site's address as your website. This is what puts you on Google Maps and in "card shop near me" results, and it matters more than anything on the site itself.
+2. **Google Search Console** ([search.google.com/search-console](https://search.google.com/search-console)): add the site, then submit `sitemap.xml` under **Sitemaps**. It shows what people search to find you and flags any problems.
+3. Check the business details with Google's [Rich Results Test](https://search.google.com/test/rich-results).
+
+On a `github.io/REPO-NAME/` address, search engines ignore `robots.txt` (it only counts at the root of a domain), so submit the sitemap in Search Console. With your own domain both work automatically.
+
 ## Publish on GitHub Pages
 
 The repository includes a workflow (`.github/workflows/deploy.yml`) that builds and publishes the site whenever you push to `main`.

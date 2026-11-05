@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { sampleOrders } from '../data.js';
-import { useTitle } from '../store.jsx';
+import { usePageMeta } from '../store.jsx';
 import { Tick } from '../components/Icons.jsx';
 import { Field } from '../components/ui.jsx';
 
@@ -145,7 +145,7 @@ function SignedIn({ onLogout }) {
 }
 
 export default function Account() {
-  useTitle('Your account – [SHOP NAME]');
+  usePageMeta('/account');
   const [loggedIn, setLoggedIn] = useState(false);
   return loggedIn ? <SignedIn onLogout={() => setLoggedIn(false)} /> : <SignedOut onLogin={() => setLoggedIn(true)} />;
 }

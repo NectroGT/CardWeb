@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { events as startingEvents, makeSampleOrders, products } from './data.js';
+import { pageMeta } from './seo.js';
 
 const StoreContext = createContext(null);
 
@@ -118,4 +119,33 @@ export function useStore() {
 
 export function useTitle(title) {
   useEffect(() => { document.title = title; }, [title]);
+}
+
+const siteUrl = (import.meta.env.VITE_SITE_URL || '').replace(/\/$/, '');
+
+// Sets a <meta> or <link> in the page head, adding it if it isn't there yet.
+function setHead(tag, key, name, attr, value) {
+  let el = document.head.querySelector(`${tag}[${key}="${name}"]`);
+  if (!el) {
+    el = document.createElement(tag);
+    el.setAttribute(key, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute(attr, value);
+}
+
+// Title, description and canonical address for a public page (the wording is in seo.js).
+export function usePageMeta(path) {
+  const { title, description } = pageMeta[path];
+  useEffect(() => {
+    document.title = title;
+    setHead('meta', 'name', 'description', 'content', description);
+    setHead('meta', 'property', 'og:title', 'content', title);
+    setHead('meta', 'property', 'og:description', 'content', description);
+    if (siteUrl) {
+      const url = siteUrl + (path === '/' ? '/' : path + '/');
+      setHead('link', 'rel', 'canonical', 'href', url);
+      setHead('meta', 'property', 'og:url', 'content', url);
+    }
+  }, [path, title, description]);
 }
